@@ -60,7 +60,31 @@
   <h2>Categories</h2>
   <ul id="categories-list"></ul>
 </nav>
-
+<section class="instructions">
+  <h2>How to Use Console Commands</h2>
+  <p>
+    To use console commands in <strong>Oblivion Remastered</strong>, press the <kbd>~</kbd> key (tilde) on your keyboard while in-game. This will open the console command panel, where you can type or paste commands. If your keyboard does not have a <kbd>~</kbd> key 
+    or it doesn't work, you can set up an alternative key:
+  </p>
+  <ol>
+    <li>Navigate to: <code>C:\Users\Your Username\Documents\My Games\Oblivion Remastered\Saved\Config\Windows</code></li>
+    <li>Open <code>Input.ini</code> with a text editor.</li>
+    <li>Paste the following section or find the existing one:<br>
+      <pre>[/script/engine.inputsettings]
+ConsoleKeys=</pre>
+      After <code>=</code> type the key you want to use to open the command console.
+    </li>
+  </ol>
+  <p>
+    <strong>Note:</strong> Using <em>any</em> console command will <strong>disable achievements</strong> for that save file.<br>
+    You can restore achievements with a mod such as <a href="https://www.nexusmods.com/oblivionremastered/mods/145" target="_blank" rel="noopener">this one</a>.
+  </p>
+  <ul>
+    <li>Commands are NOT case-sensitive.</li>
+    <li>Some commands accept parameters (often shown in brackets). When entering a command, omit the brackets. For example, input <code>setlevel 10</code> not <code>setlevel [10]</code>.</li>
+    <li>Console commands are only available on Windows PC.</li>
+  </ul>
+</section>
 <section><h2>Console Commands</h2><div class="filter-box"><input type="text" id="Console_Commands" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Command</th><th>Description</th><th>Example</th></tr></thead>
 <tbody><tr><td>advlevel</td><td>Instant level up</td><td></td></tr>
@@ -92,9 +116,11 @@
 <tr><td>ToggleDebugCamera</td><td>Toggle debug photo mode</td><td></td></tr>
 <tr><td>Unlock</td><td>While the console is open, press on a door and use this cheat to unlock it</td><td></td></tr>
 <tr><td>Walk</td><td>Reverse the Ghost cheat</td><td></td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls1" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>All Toggle Commands</h2><div class="filter-box"><input type="text" id="All_Toggle_Commands" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>All Toggle Commands</h2>
+<p>These are commands that you toggle on and off. Using one of these commands twice will usually just revert things back to normal.</p>
+<div class="filter-box"><input type="text" id="All_Toggle_Commands" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Command</th><th>Description</th></tr></thead>
 <tbody><tr><td>Altar.GraphicsOptions.HDR 1</td><td>Enable HDR support</td></tr>
 <tr><td>ghost</td><td>Toggle collision (clipping, noclip). “walk” will disable this one</td></tr>
@@ -119,9 +145,12 @@
 <tr><td>twf</td><td>Toggle wireframe mode</td></tr>
 <tr><td>twr</td><td>Toggle water radius</td></tr>
 <tr><td>tws</td><td>Toggle water rendering</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls2" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Target Commands</h2><div class="filter-box"><input type="text" id="Target_Commands" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Target Commands</h2>
+<p>These are cheats you will use with a target mentioned at the start of the command. For example, if you want to give yourself 100 gold, you’d have to write “player.Additem f 100”.</p>
+<p>If you’d want to target someone else, you’d have to replace “player” with their ID in between quotations marks. So something like this: “NPCID”. Additem f 100.</p>
+<div class="filter-box"><input type="text" id="Target_Commands" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Command</th><th>Description</th></tr></thead>
 <tbody><tr><td>additem &lt;ItemID Amount&gt;</td><td>Add item to inventory. There’s a long list of IDs lower in the guide</td></tr>
 <tr><td>addspell &lt;SpellID&gt;</td><td>Add spell. There’s a long list of IDs lower in the guide</td></tr>
@@ -154,9 +183,11 @@
 <tr><td>startcombat &lt;NPCID&gt;</td><td>Start target combat</td></tr>
 <tr><td>stopcombat</td><td>Stop target combat</td></tr>
 <tr><td>unlock</td><td>Unlock doors or chests</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls3" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Quest Commands</h2><div class="filter-box"><input type="text" id="Quest_Commands" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Quest Commands</h2>
+<p>These are commands you can use to fix problems from bugs with your quests, such as skipping stages that are impossible to complete.</p>
+<div class="filter-box"><input type="text" id="Quest_Commands" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Command</th><th>Description</th></tr></thead>
 <tbody><tr><td>caqs</td><td>Completes all quest stages (will likely crash your game)</td></tr>
 <tr><td>completequest &lt;QuestID&gt;</td><td>Completes quest</td></tr>
@@ -171,7 +202,16 @@
 <tr><td>ShowQuestTargets</td><td>Shows active quests ID and stage</td></tr>
 <tr><td>sq</td><td>Show all quests and stage</td></tr>
 <tr><td>sqt</td><td>Show current quest</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls4" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+
+<section><h2>Vital Item IDs</h2>
+<table>
+<thead><tr><th>Item</th><th>Command</th></tr></thead>
+<tbody><tr><td>Gold – F</td><td>player.additem F 10000</td></tr>
+<tr><td>Lockpick – A</td><td>player.additem A 10000</td></tr>
+<tr><td>Repair Hammer – C</td><td>player.additem C 10000</td></tr>
+</tbody></table>
+</section>
 
 <section><h2>Armor IDs</h2><div class="filter-box"><input type="text" id="Armor_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Rating</th><th>Weight</th><th>Value</th><th>Enchantment</th><th>Armor ID</th><th>Copy Paste Cheat</th></tr></thead>
@@ -1212,7 +1252,7 @@
 <tr><td>Witchfinder’s Shield</td><td></td><td></td><td></td><td></td><td>0004965B</td><td>player.additem 0004965B 1</td></tr>
 <tr><td>Witchhunter Helmet</td><td></td><td></td><td></td><td></td><td>0004965E</td><td>player.additem 0004965E 1</td></tr>
 <tr><td>Wizard’s Helmet</td><td></td><td></td><td></td><td></td><td>00049150</td><td>player.additem 49150 1</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls5" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <section><h2>Arrow IDs</h2><div class="filter-box"><input type="text" id="Arrow_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Arrow ID</th><th>Copy Paste Cheat</th></tr></thead>
@@ -1283,7 +1323,7 @@
 <tr><td>Steel Arrow</td><td>000229C1</td><td>player.additem 000229C1 1</td></tr>
 <tr><td>Stormcall Arrow</td><td>000CD541</td><td>player.additem 000CD541 1</td></tr>
 <tr><td>Tracer Arrow</td><td>0800BA45</td><td>player.additem 0800BA45 1</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls6" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <section><h2>Alchemy Equipment IDs</h2><div class="filter-box"><input type="text" id="Alchemy_Equipment_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Equipment ID</th><th>Copy Paste Cheat</th></tr></thead>
@@ -1308,7 +1348,7 @@
 <tr><td>Novice Mortar &amp;amp; Pestle</td><td>000C7968</td><td>player.additem 000C7968 1</td></tr>
 <tr><td>Novice Mortar &amp;amp; Pestle</td><td>000105E3</td><td>player.additem 000105E3 1</td></tr>
 <tr><td>Novice Retort</td><td>00000C4F</td><td>player.additem 00000C4F 1</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls7" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <section><h2>Alchemy Ingredients IDs</h2><div class="filter-box"><input type="text" id="Alchemy_Ingredients_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Ingredient ID</th><th>Copy Paste Cheat</th></tr></thead>
@@ -1475,7 +1515,7 @@
 <tr><td>Withering Moon</td><td>0001B6B3</td><td>player.additem 0001B6B3 1</td></tr>
 <tr><td>Wormwood Leaves</td><td>000A793E</td><td>player.additem 000A793E 1</td></tr>
 <tr><td>Worm’s Head Cap</td><td>0001B5AA</td><td>player.additem 0001B5AA 1</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls8" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <section><h2>Books and Scrolls IDs</h2><div class="filter-box"><input type="text" id="Books_and_Scrolls_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Book ID</th><th>Copy Paste Cheat</th></tr></thead>
@@ -2361,7 +2401,7 @@
 <tr><td>Words and Philosophy</td><td>000243E3</td><td>player.additem 000243E3 1</td></tr>
 <tr><td>Worn, Faded Note</td><td>0002C500</td><td>player.additem 0002C500 1</td></tr>
 <tr><td>Zealotry</td><td>0006987D</td><td>player.additem 0006987D 1</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls20" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <section><h2>Clothing, Amulets, and Rings IDs</h2><div class="filter-box"><input type="text" id="Clothing,_Amulets,_and_Rings_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>ID</th><th>Copy Paste Cheat</th></tr></thead>
@@ -2902,9 +2942,11 @@
 <tr><td>Wrist Irons</td><td>000BE335</td><td>player.additem 000BE335 1</td></tr>
 <tr><td>Zealot’s Hood</td><td>000525AD</td><td>player.additem 000525AD 1</td></tr>
 <tr><td>Zealot’s Robe</td><td>000525AC</td><td>player.additem 000525AC 1</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls9" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Horses IDs</h2><div class="filter-box"><input type="text" id="Horses_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Horses IDs</h2>
+<p>All horses should spawn as “owned,” so you can ride them without any problems.</p>
+<div class="filter-box"><input type="text" id="Horses_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Horse ID</th><th>Copy Paste Cheat</th></tr></thead>
 <tbody><tr><td>Armored Akatosh Bay Bravil</td><td>0C014DCD</td><td>player.placeatme 0C014DCD 1</td></tr>
 <tr><td>Armored Akatosh Bay Skingrad</td><td>0C014DCE</td><td>player.placeatme 0C014DCE 1</td></tr>
@@ -2954,7 +2996,7 @@
 <tr><td>Shadowmere (Armored)</td><td>0300211C</td><td>player.placeatme 0300211C 1</td></tr>
 <tr><td>Unicorn</td><td>0001EC58</td><td>Player.Placeatme 0001EC58 1</td></tr>
 <tr><td>White Horse</td><td>0004DE8D</td><td>Player.Placeatme 0004DE8D 1</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls10" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <section><h2>Keys IDs</h2><div class="filter-box"><input type="text" id="Keys_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Key ID</th><th>Copy Paste Cheat</th></tr></thead>
@@ -3418,7 +3460,7 @@
 <tr><td>Xeddefen key</td><td>000171E4</td><td>player.additem 000171E4 1</td></tr>
 <tr><td>Xiditte Cell Key</td><td>00076907</td><td>player.additem 00076907 1</td></tr>
 <tr><td>Zoe Malene’s Key</td><td>000749DF</td><td>player.additem 000749DF 1</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls11" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <section><h2>Locations IDs</h2><div class="filter-box"><label for="regionTypeSelect">Filter by Region/Type:</label><select id="regionTypeSelect"><option value="">--All--</option></select><input type="text" id="Locations_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table id="location-ids">
 <thead><tr><th>Location ID</th><th>Region/Type</th></tr></thead>
@@ -4047,7 +4089,7 @@
 <tr><td>XPXedilian02</td><td>Ayleid Ruins</td></tr>
 <tr><td>YellowTickCave</td><td>Cave</td></tr>
 <tr><td>YellowTickCave02</td><td>Cave</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls12" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <section><h2>Miscellaneous IDs</h2><div class="filter-box"><input type="text" id="Miscellaneous_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>ID</th><th>Copy Paste Cheat</th></tr></thead>
@@ -4325,7 +4367,7 @@
 <tr><td>West Weald Bear Fang</td><td>0018AE3F</td><td>player.additem 0018AE3F 1</td></tr>
 <tr><td>Wolf Pelt</td><td>000228E2</td><td>player.additem 000228E2 1</td></tr>
 <tr><td>Yarn</td><td>00025205</td><td>player.additem 00025205 1</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls13" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <section><h2>NPC IDs</h2><div class="filter-box"><input type="text" id="NPC_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Base ID</th></tr></thead>
@@ -5462,7 +5504,7 @@
 <tr><td>Zabhila</td><td>00026AEF</td></tr>
 <tr><td>Zahrasha</td><td>000352B1</td></tr>
 <tr><td>Zedrick Green</td><td>0800398E</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls14" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <section><h2>Potions and Drinks IDs</h2><div class="filter-box"><input type="text" id="Potions_and_Drinks_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Potion ID</th><th>Copy Paste Cheat</th></tr></thead>
@@ -5723,7 +5765,7 @@
 <tr><td>Weak Potion of the Sea</td><td>00009324</td><td>player.additem 00009324 1</td></tr>
 <tr><td>Weak Potion of Warmth</td><td>0009848B</td><td>player.additem 0009848B 1</td></tr>
 <tr><td>Weak Potion of Willpower</td><td>00056E51</td><td>player.additem 00056E51 1</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls15" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <section><h2>Spells IDs</h2><div class="filter-box"><input type="text" id="Spells_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Spell ID</th><th>Effect</th><th>Copy Paste Cheat</th></tr></thead>
@@ -6151,7 +6193,7 @@
 <tr><td>Wizard’s Fury</td><td>000C481C</td><td>Level 20 (Journeyman) Fire Damage 6 pt for 10 secs on Target&lt;br&gt;Frost Damage 20 pts on Target&lt;br&gt;Shock Damage 20 pts on Target</td><td>player.addspell 000C481C</td></tr>
 <tr><td>Wizard’s Fury</td><td>000C481D</td><td>Level 25 (Expert) Fire Damage 8 pt for 10 secs on Target&lt;br&gt;Frost Damage 20 pts on Target&lt;br&gt;Shock Damage 20 pts on Target</td><td>player.addspell 000C481D</td></tr>
 <tr><td>Wizard’s Fury</td><td>000C481E</td><td>Level 30 (Expert) Fire Damage 10 pt for 10 secs on Target&lt;br&gt;Frost Damage 30 pts on Target&lt;br&gt;Shock Damage 30 pts on Target</td><td>player.addspell 000C481E</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls16" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <section><h2>Soul Gems IDs</h2><div class="filter-box"><input type="text" id="Soul_Gems_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Soul Gem ID</th><th>Copy Paste Cheat</th></tr></thead>
@@ -6182,7 +6224,7 @@
 <tr><td>Lesser Soul Gem</td><td>000382D3</td><td>player.additem 000382D3 1</td></tr>
 <tr><td>Petty Soul Gem</td><td>00023D67</td><td>player.additem 00023D67 1</td></tr>
 <tr><td>Petty Soul Gem</td><td>000382D1</td><td>player.additem 000382D1 1</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls17" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <section><h2>Sigil Stone IDs</h2><div class="filter-box"><input type="text" id="Sigil_Stone_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Effect</th><th>Descendent ID</th><th>Subjacent ID</th><th>Latent ID</th><th>Ascendent ID</th><th>Transcendent ID</th></tr></thead>
@@ -6216,7 +6258,7 @@
 <tr><td>Silence, Soul Trap</td><td>00042089</td><td>0004208B</td><td>0004208C</td><td>0004208D</td><td>0004208E</td></tr>
 <tr><td>Soul Trap, Turn Undead</td><td>00042096</td><td>00042097</td><td>00042098</td><td>00042099</td><td>0004209A</td></tr>
 <tr><td>Turn Undead, Fortify Agility</td><td>0004209C</td><td>0004209D</td><td>0004209E</td><td>0004209F</td><td>0004209B</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls18" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <section><h2>Weapons IDs</h2><div class="filter-box"><input type="text" id="Weapons_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Weapon ID</th><th>Copy Paste Cheat</th></tr></thead>
@@ -7487,7 +7529,7 @@
 <tr><td>Worn Golden Mace</td><td>00041EBA</td><td>player.additem 00041EBA 1</td></tr>
 <tr><td>Worn Golden Shortsword</td><td>00041EB7</td><td>player.additem 00041EB7 1</td></tr>
 <tr><td>Worn Golden Waraxe</td><td>00041EB6</td><td>player.additem 00041EB6 1</td></tr>
-</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
+</tbody></table><div class="pagination-controls">Show<select id="pagination-controls19" class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <script src="https://unpkg.com/tablesort@5.2.1/dist/tablesort.min.js"></script>
 <script>
@@ -7568,33 +7610,41 @@
     }
   }
 
-  // 5. Double-click-to-copy (for tables supporting it)
-  document.addEventListener('dblclick', function (e) {
-    let td = e.target.closest('td');
-    if (!td) return;
-    let tr = td.parentElement, table = tr.closest('table');
-    if (!table || !table.tHead) return;
-    let colIndex = Array.prototype.indexOf.call(tr.cells, td);
-    let ths = table.tHead.rows[0].cells;
-    let colName = ths[colIndex] ? ths[colIndex].textContent.trim().toLowerCase() : '';
-    let isDataRow = tr.rowIndex > 0;
-    if (!isDataRow) return;
-    let section = table.closest("section");
-    let sectionTitle = section && section.querySelector("h2,h3") ? section.querySelector("h2,h3").textContent.toLowerCase() : '';
+	document.addEventListener('dblclick', function (e) {
+	  let td = e.target.closest('td');
+	  if (!td) return;
+	  let tr = td.parentElement,
+		  table = tr.closest('table');
+	  if (!table || !table.tHead) return;
+	  let colIndex = Array.prototype.indexOf.call(tr.cells, td);
+	  let ths = table.tHead.rows[0].cells;
+	  let colName = ths[colIndex] ? ths[colIndex].textContent.trim().toLowerCase() : '';
+	  let isDataRow = tr.rowIndex > 0;
+	  if (!isDataRow) return;
+	  let section = table.closest("section");
+	  let sectionTitle = section && section.querySelector("h2,h3")
+		  ? section.querySelector("h2,h3").textContent.trim().toLowerCase() : '';
 
-    // command table logic:
-    let isCommandTable =
-      /(console commands|toggle commands|target commands|quest commands)/i.test(sectionTitle) &&
-      colName === 'command';
-    // general logic for IDs and Copy Paste Cheat columns
-    let isIDorCheatColumn =
-      /\bid\b/i.test(colName) ||
-      colName.includes("copy paste cheat") ||
-      colName.includes("copy & paste cheat");
-    if (isCommandTable || isIDorCheatColumn) {
-      copyTextToClipboard(td.innerText, td);
-    }
-  });
+	  // Expand logic: Also allow copying of the "Command" column in "Vital Item IDs" table
+	  let isCommandTable =
+		/(console commands|toggle commands|target commands|quest commands|vital item ids)/i.test(sectionTitle) &&
+		colName === 'command';
+
+	  // For tables like Armor IDs, also match Copy Paste Cheat
+	  let isIDorCheatColumn =
+		/\bid\b/.test(colName) ||
+		colName.includes("copy paste cheat") ||
+		colName.includes("copy & paste cheat");
+
+	  // Additional logic: if section is about "item ids" and colName is "command", also allow
+	  let isVitalItemCommand =
+		/item id/.test(sectionTitle) && colName === "command";
+
+	  if (isCommandTable || isIDorCheatColumn || isVitalItemCommand) {
+		copyTextToClipboard(td.innerText, td);
+	  }
+	});
+
 
   // Copy utility w/ feedback
   function copyTextToClipboard(text, td) {
@@ -7622,10 +7672,14 @@
 
 		const rows = Array.from(tbody.rows);
 		const pagination = section.querySelector(".pagination-controls");
+		if (!pagination) return;
+		
 		const perPageSelect = pagination.querySelector(".items-per-page");
 		const prevBtn = pagination.querySelector(".prev-page");
 		const nextBtn = pagination.querySelector(".next-page");
 		const pageInfo = pagination.querySelector(".page-info");
+		if (!perPageSelect || !prevBtn || !nextBtn || !pageInfo) return;
+		
 		let currentPage = 1;
 		let perPage = parseInt(perPageSelect.value) || 10;
 
