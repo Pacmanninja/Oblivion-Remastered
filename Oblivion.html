@@ -36,7 +36,7 @@
 <section><h2>Console Commands</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Command</th><th>Description</th><th>Example</th></tr></thead>
 <tbody><tr><td>advlevel</td><td>Instant level up</td><td></td></tr>
-<tr><td>coc &lt;em&gt;Location&lt;/em&gt;</td><td>Teleport to Location. You can find a list of all the Locations in the game lower in the guide</td><td></td></tr>
+<tr><td>coc &lt;Location&gt;</td><td>Teleport to Location. You can find a list of all the Locations in the game lower in the guide</td><td>coc WeynonPrioryHouse</td></tr>
 <tr><td>Ghost</td><td>Fly through walls and become invicible (like a ghost)</td><td></td></tr>
 <tr><td>Kill</td><td>While the console is open, press on a character and use this cheat to kill them</td><td></td></tr>
 <tr><td>KillAll</td><td>Kill everyone around</td><td></td></tr>
@@ -44,11 +44,11 @@
 <tr><td>ObvGodMode</td><td>Activates Overpowered God Mode (invincibility, money, max skills and stats)</td><td></td></tr>
 <tr><td>player.additem 0000000B 1</td><td>Get Skeleton Key which unlocks any door</td><td></td></tr>
 <tr><td>player.additem f 1000000</td><td>Add money. In this case 1 million</td><td></td></tr>
-<tr><td>player.AddItem &lt;em&gt;ItemID Amount&lt;/em&gt;</td><td>Add a new item to your inventory. Change &lt;em&gt;ItemID &lt;/em&gt;with an actual ID and the Amount with a number to get that item in your inventory</td><td>player.AddItem 00014D66 1</td></tr>
-<tr><td>player.addspell &lt;em&gt;SpellID&lt;/em&gt;</td><td>Learn a new spell. Change &lt;em&gt;SpellID &lt;/em&gt;with the spell’s ID you want to learn</td><td>player.addspell 000A97F9</td></tr>
-<tr><td>player.advskill &lt;em&gt;Skill Amount&lt;/em&gt;</td><td>Set the skill to the desired amount. Write the skill names exactly the same as they appear in the menus, two word skills are written in one word</td><td>player.advskill heavyarmor 100</td></tr>
-<tr><td>player.modav encumbrance –&lt;em&gt;Amount&lt;/em&gt;</td><td>Increase carry weight</td><td>player.modav encumbrance -9999</td></tr>
-<tr><td>player.setav &lt;em&gt;Attribute Amount&lt;/em&gt;</td><td>Set the attribute (strength, intelligence, willpower, agility, speed, endurance, personality, or luck) to the desired amount</td><td>player.setav strength 250</td></tr>
+<tr><td>player.AddItem &lt;ItemID Amount&gt;</td><td>Add a new item to your inventory. Change &lt;ItemID&gt;with an actual ID and the Amount with a number to get that item in your inventory</td><td>player.AddItem 00014D66 1</td></tr>
+<tr><td>player.addspell &lt;SpellID&gt;</td><td>Learn a new spell. Change &lt;SpellID&gt;with the spell’s ID you want to learn</td><td>player.addspell 000A97F9</td></tr>
+<tr><td>player.advskill &lt;Skill Amount&gt;</td><td>Set the skill to the desired amount. Write the skill names exactly the same as they appear in the menus, two word skills are written in one word</td><td>player.advskill heavyarmor 100</td></tr>
+<tr><td>player.modav encumbrance –&lt;Amount&gt;</td><td>Increase carry weight</td><td>player.modav encumbrance -9999</td></tr>
+<tr><td>player.setav &lt;Attribute Amount&gt;</td><td>Set the attribute (strength, intelligence, willpower, agility, speed, endurance, personality, or luck) to the desired amount</td><td>player.setav strength 250</td></tr>
 <tr><td>psb</td><td>Unlock all spells</td><td></td></tr>
 <tr><td>ShowBirthsignMenu</td><td>Change Birthsign</td><td></td></tr>
 <tr><td>ShowClassMenu</td><td>Change class (resets skills)</td><td></td></tr>
@@ -85,7 +85,7 @@
 <tr><td>tlv</td><td>Toggle leaves</td></tr>
 <tr><td>tm</td><td>Toggles menus (HUD)</td></tr>
 <tr><td>tmg</td><td>Toggle material geometry</td></tr>
-<tr><td>tmm &lt;em&gt;Amount&lt;/em&gt;</td><td>Show(1)/hide(0) all map markers</td></tr>
+<tr><td>tmm &lt;Amount&gt;</td><td>Show(1)/hide(0) all map markers</td></tr>
 <tr><td>ts</td><td>Toggle sky</td></tr>
 <tr><td>tt</td><td>Toggle trees</td></tr>
 <tr><td>twf</td><td>Toggle wireframe mode</td></tr>
@@ -95,35 +95,35 @@
 
 <section><h2>Target Commands</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Command</th><th>Description</th></tr></thead>
-<tbody><tr><td>additem &lt;em&gt;ItemID Amount&lt;/em&gt;</td><td>Add item to inventory. There’s a long list of IDs lower in the guide</td></tr>
-<tr><td>addspell &lt;em&gt;SpellID&lt;/em&gt;</td><td>Add spell. There’s a long list of IDs lower in the guide</td></tr>
+<tbody><tr><td>additem &lt;ItemID Amount&gt;</td><td>Add item to inventory. There’s a long list of IDs lower in the guide</td></tr>
+<tr><td>addspell &lt;SpellID&gt;</td><td>Add spell. There’s a long list of IDs lower in the guide</td></tr>
 <tr><td>createfullactorcopy</td><td>Clones target actor</td></tr>
 <tr><td>deletefullactorcopy</td><td>Deletes a clone of the target actor</td></tr>
-<tr><td>dispel &lt;em&gt;SpellID&lt;/em&gt;</td><td>Dispel a specific magic effect from target</td></tr>
+<tr><td>dispel &lt;SpellID&gt;</td><td>Dispel a specific magic effect from target</td></tr>
 <tr><td>dispelallspells</td><td>Dispel all spell-based magic effects from target</td></tr>
-<tr><td>equipitem &lt;em&gt;ItemID&lt;/em&gt;</td><td>Equip an Item</td></tr>
-<tr><td>getav &lt;em&gt;attribute&lt;/em&gt;</td><td>Get value of attribute</td></tr>
+<tr><td>equipitem &lt;ItemID&gt;</td><td>Equip an Item</td></tr>
+<tr><td>getav &lt;attribute&gt;</td><td>Get value of attribute</td></tr>
 <tr><td>getBarterGold</td><td>Gets the target’s shop gold</td></tr>
 <tr><td>getcrimegold</td><td>Gets the target’s current bounty.</td></tr>
-<tr><td>kill &lt;em&gt;NPCID&lt;/em&gt;</td><td>Kill NPC. You can also just write “kill” and press the target with your mouse</td></tr>
-<tr><td>lock &lt;em&gt;Amount&lt;/em&gt;</td><td>Lock doors or chests. The amount is the difficutly from 1 to 99</td></tr>
-<tr><td>moddisposition &lt;em&gt;NPCID Amount&lt;/em&gt;</td><td>Change NPC disposition</td></tr>
-<tr><td>moveto &lt;em&gt;ID&lt;/em&gt;</td><td>Teleports you to destination. The ID can be either an object or an NPC</td></tr>
+<tr><td>kill &lt;NPCID&gt;</td><td>Kill NPC. You can also just write “kill” and press the target with your mouse</td></tr>
+<tr><td>lock &lt;Amount&gt;</td><td>Lock doors or chests. The amount is the difficutly from 1 to 99</td></tr>
+<tr><td>moddisposition &lt;NPCID Amount&gt;</td><td>Change NPC disposition</td></tr>
+<tr><td>moveto &lt;ID&gt;</td><td>Teleports you to destination. The ID can be either an object or an NPC</td></tr>
 <tr><td>payfine</td><td>Pay criminal fines</td></tr>
 <tr><td>payfinethief</td><td>Pay criminal fines without removing stolen items</td></tr>
-<tr><td>placeatme &lt;em&gt;ID&lt;/em&gt;</td><td>Spawns a copy of ID in front of you</td></tr>
-<tr><td>removeitem &lt;em&gt;ItemID Amount&lt;/em&gt;</td><td>Remove item from inventory</td></tr>
-<tr><td>removespell &lt;em&gt;SpellID&lt;/em&gt;</td><td>Remove spell</td></tr>
+<tr><td>placeatme &lt;ID&gt;</td><td>Spawns a copy of ID in front of you</td></tr>
+<tr><td>removeitem &lt;ItemID Amount&gt;</td><td>Remove item from inventory</td></tr>
+<tr><td>removespell &lt;SpellID&gt;</td><td>Remove spell</td></tr>
 <tr><td>resurrect 1</td><td>Resurrects target. NPCs might still refer to the target as dead if you didn’t do it immediately after death</td></tr>
-<tr><td>SetActorFullName &lt;em&gt;Name&lt;/em&gt;</td><td>Change your name. Use quotation marks if you want to have spaces in your name</td></tr>
-<tr><td>setav &lt;em&gt;attribute Amount&lt;/em&gt;</td><td>Sets value of attribute</td></tr>
-<tr><td>setBarterGold &lt;em&gt;Amount&lt;/em&gt;</td><td>Sets the target’s shop gold.</td></tr>
-<tr><td>setcrimegold &lt;em&gt;Amount&lt;/em&gt;</td><td>Sets bounty on target</td></tr>
-<tr><td>setessential &lt;em&gt;ID Amount&lt;/em&gt;</td><td>Sets the target’s essential flag. 1 is essential, 0 is non-essential</td></tr>
-<tr><td>setlevel &lt;em&gt;Amount&lt;/em&gt;</td><td>Changes target’s level</td></tr>
-<tr><td>SetOwnership [&lt;em&gt;ID&lt;/em&gt;/&lt;em&gt;FactionID&lt;/em&gt;]</td><td>Changes ownership of targeted item to you (if no ID is specified), or to the specified NPC/Faction</td></tr>
-<tr><td>setscale &lt;em&gt;Amount&lt;/em&gt;</td><td>Change target height (1 is human)</td></tr>
-<tr><td>startcombat &lt;em&gt;NPCID&lt;/em&gt;</td><td>Start target combat</td></tr>
+<tr><td>SetActorFullName &lt;Name&gt;</td><td>Change your name. Use quotation marks if you want to have spaces in your name</td></tr>
+<tr><td>setav &lt;attribute Amount&gt;</td><td>Sets value of attribute</td></tr>
+<tr><td>setBarterGold &lt;Amount&gt;</td><td>Sets the target’s shop gold.</td></tr>
+<tr><td>setcrimegold &lt;Amount&gt;</td><td>Sets bounty on target</td></tr>
+<tr><td>setessential &lt;ID Amount&gt;</td><td>Sets the target’s essential flag. 1 is essential, 0 is non-essential</td></tr>
+<tr><td>setlevel &lt;Amount&gt;</td><td>Changes target’s level</td></tr>
+<tr><td>SetOwnership [&lt;ID&gt;/&lt;FactionID&gt;]</td><td>Changes ownership of targeted item to you (if no ID is specified), or to the specified NPC/Faction</td></tr>
+<tr><td>setscale &lt;Amount&gt;</td><td>Change target height (1 is human)</td></tr>
+<tr><td>startcombat &lt;NPCID&gt;</td><td>Start target combat</td></tr>
 <tr><td>stopcombat</td><td>Stop target combat</td></tr>
 <tr><td>unlock</td><td>Unlock doors or chests</td></tr>
 </tbody></table></section>
@@ -131,12 +131,12 @@
 <section><h2>Quest Commands</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Command</th><th>Description</th></tr></thead>
 <tbody><tr><td>caqs</td><td>Completes all quest stages (will likely crash your game)</td></tr>
-<tr><td>completequest &lt;em&gt;QuestID&lt;/em&gt;</td><td>Completes quest</td></tr>
-<tr><td>GetStage &lt;em&gt;QuestID&lt;/em&gt;</td><td>Shows quest stage for &lt;em&gt;QuestID&lt;/em&gt;</td></tr>
+<tr><td>completequest &lt;QuestID&gt;</td><td>Completes quest</td></tr>
+<tr><td>GetStage &lt;QuestID&gt;</td><td>Shows quest stage for &lt;QuestID&gt;</td></tr>
 <tr><td>movetoqt</td><td>Teleport to quest target</td></tr>
-<tr><td>player.completequest &lt;em&gt;QuestID&lt;/em&gt;</td><td>Removes quest from list. (Does not complete it)</td></tr>
-<tr><td>SetStage &lt;em&gt;QuestID&lt;/em&gt; &lt;em&gt;StageID&lt;/em&gt;</td><td>Advances &lt;em&gt;QuestID&lt;/em&gt; to &lt;em&gt;StageID&lt;/em&gt;. Useful for bugged quests. Only works if you use “Altar.Cheat.AllowSetStage true” command beforehand</td></tr>
-<tr><td>showfullquestlog &lt;em&gt;QuestID&lt;/em&gt;</td><td>Shows all log entries for &lt;em&gt;QuestID&lt;/em&gt;</td></tr>
+<tr><td>player.completequest &lt;QuestID&gt;</td><td>Removes quest from list. (Does not complete it)</td></tr>
+<tr><td>SetStage &lt;QuestID&gt; &lt;StageID&gt;</td><td>Advances &lt;QuestID&gt; to &lt;StageID&gt;. Useful for bugged quests. Only works if you use “Altar.Cheat.AllowSetStage true” command beforehand</td></tr>
+<tr><td>showfullquestlog &lt;QuestID&gt;</td><td>Shows all log entries for &lt;QuestID&gt;</td></tr>
 <tr><td>showquestlog</td><td>Show quest log</td></tr>
 <tr><td>showquestlog 0</td><td>Show current quest log</td></tr>
 <tr><td>showquestlog 1</td><td>Show completed quest log</td></tr>
