@@ -21,19 +21,47 @@
     #right-menu li { margin-bottom: 8px; }
     #right-menu a { color: #ecc3ff; text-decoration: none; font-size: 16px; }
     #right-menu a:hover { color: #fff684; }
-    .copied {
+    .pagination-controls .items-per-page {
+	  width: 80px;
+	  min-width: 0;
+	  max-width: 100px;
+	  font-size: 0.95em;
+	  padding: 2px 4px;
+	}
+	.copied {
       background: #cfa !important;
       transition: background 0.6s;
     }
+	.toast {
+	  visibility: hidden;
+	  position: fixed;
+	  bottom: 40px;
+	  left: 50%;
+	  transform: translateX(-50%);
+	  background: #333;
+	  color: #fff;
+	  padding: 12px 22px;
+	  border-radius: 4px;
+	  font-size: 17px;
+	  opacity: 0;
+	  transition: opacity 0.35s;
+	  z-index: 1100;
+	}
+	.toast.show {
+	  visibility: visible;
+	  opacity: 1;
+	}
+
   </style>
 </head>
 <body>
+<div id="toast" class="toast">Copied!</div>
 <nav id="right-menu">
   <h2>Categories</h2>
   <ul id="categories-list"></ul>
 </nav>
 
-<section><h2>Console Commands</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Console Commands</h2><div class="filter-box"><input type="text" id="Console_Commands" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Command</th><th>Description</th><th>Example</th></tr></thead>
 <tbody><tr><td>advlevel</td><td>Instant level up</td><td></td></tr>
 <tr><td>coc &lt;Location&gt;</td><td>Teleport to Location. You can find a list of all the Locations in the game lower in the guide</td><td>coc WeynonPrioryHouse</td></tr>
@@ -64,9 +92,9 @@
 <tr><td>ToggleDebugCamera</td><td>Toggle debug photo mode</td><td></td></tr>
 <tr><td>Unlock</td><td>While the console is open, press on a door and use this cheat to unlock it</td><td></td></tr>
 <tr><td>Walk</td><td>Reverse the Ghost cheat</td><td></td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>All Toggle Commands</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>All Toggle Commands</h2><div class="filter-box"><input type="text" id="All_Toggle_Commands" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Command</th><th>Description</th></tr></thead>
 <tbody><tr><td>Altar.GraphicsOptions.HDR 1</td><td>Enable HDR support</td></tr>
 <tr><td>ghost</td><td>Toggle collision (clipping, noclip). “walk” will disable this one</td></tr>
@@ -91,9 +119,9 @@
 <tr><td>twf</td><td>Toggle wireframe mode</td></tr>
 <tr><td>twr</td><td>Toggle water radius</td></tr>
 <tr><td>tws</td><td>Toggle water rendering</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Target Commands</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Target Commands</h2><div class="filter-box"><input type="text" id="Target_Commands" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Command</th><th>Description</th></tr></thead>
 <tbody><tr><td>additem &lt;ItemID Amount&gt;</td><td>Add item to inventory. There’s a long list of IDs lower in the guide</td></tr>
 <tr><td>addspell &lt;SpellID&gt;</td><td>Add spell. There’s a long list of IDs lower in the guide</td></tr>
@@ -126,9 +154,9 @@
 <tr><td>startcombat &lt;NPCID&gt;</td><td>Start target combat</td></tr>
 <tr><td>stopcombat</td><td>Stop target combat</td></tr>
 <tr><td>unlock</td><td>Unlock doors or chests</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Quest Commands</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Quest Commands</h2><div class="filter-box"><input type="text" id="Quest_Commands" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Command</th><th>Description</th></tr></thead>
 <tbody><tr><td>caqs</td><td>Completes all quest stages (will likely crash your game)</td></tr>
 <tr><td>completequest &lt;QuestID&gt;</td><td>Completes quest</td></tr>
@@ -143,9 +171,9 @@
 <tr><td>ShowQuestTargets</td><td>Shows active quests ID and stage</td></tr>
 <tr><td>sq</td><td>Show all quests and stage</td></tr>
 <tr><td>sqt</td><td>Show current quest</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Armor IDs</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Armor IDs</h2><div class="filter-box"><input type="text" id="Armor_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Rating</th><th>Weight</th><th>Value</th><th>Enchantment</th><th>Armor ID</th><th>Copy Paste Cheat</th></tr></thead>
 <tbody><tr><td>Aegis of Reflection</td><td>3</td><td>3</td><td>5645</td><td>Reflect Spell on Self 14%</td><td>00053D77</td><td>player.additem 00053D77 1</td></tr>
 <tr><td>Aegis of the Apocalypse</td><td></td><td></td><td></td><td></td><td>000CA117</td><td>player.additem 000CA117 1</td></tr>
@@ -1184,9 +1212,9 @@
 <tr><td>Witchfinder’s Shield</td><td></td><td></td><td></td><td></td><td>0004965B</td><td>player.additem 0004965B 1</td></tr>
 <tr><td>Witchhunter Helmet</td><td></td><td></td><td></td><td></td><td>0004965E</td><td>player.additem 0004965E 1</td></tr>
 <tr><td>Wizard’s Helmet</td><td></td><td></td><td></td><td></td><td>00049150</td><td>player.additem 49150 1</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Arrow IDs</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Arrow IDs</h2><div class="filter-box"><input type="text" id="Arrow_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Arrow ID</th><th>Copy Paste Cheat</th></tr></thead>
 <tbody><tr><td>Arrow of Apathy</td><td>0800BA54</td><td>player.additem 0800BA54 1</td></tr>
 <tr><td>Arrow of Blindness</td><td>0800BA44</td><td>player.additem 0800BA44 1</td></tr>
@@ -1255,9 +1283,9 @@
 <tr><td>Steel Arrow</td><td>000229C1</td><td>player.additem 000229C1 1</td></tr>
 <tr><td>Stormcall Arrow</td><td>000CD541</td><td>player.additem 000CD541 1</td></tr>
 <tr><td>Tracer Arrow</td><td>0800BA45</td><td>player.additem 0800BA45 1</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Alchemy Equipment IDs</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Alchemy Equipment IDs</h2><div class="filter-box"><input type="text" id="Alchemy_Equipment_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Equipment ID</th><th>Copy Paste Cheat</th></tr></thead>
 <tbody><tr><td>Apprentice Alembic</td><td>0006E310</td><td>player.additem 0006E310 1</td></tr>
 <tr><td>Apprentice Calcinator</td><td>0006E311</td><td>player.additem 0006E311 1</td></tr>
@@ -1280,9 +1308,9 @@
 <tr><td>Novice Mortar &amp;amp; Pestle</td><td>000C7968</td><td>player.additem 000C7968 1</td></tr>
 <tr><td>Novice Mortar &amp;amp; Pestle</td><td>000105E3</td><td>player.additem 000105E3 1</td></tr>
 <tr><td>Novice Retort</td><td>00000C4F</td><td>player.additem 00000C4F 1</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Alchemy Ingredients IDs</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Alchemy Ingredients IDs</h2><div class="filter-box"><input type="text" id="Alchemy_Ingredients_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Ingredient ID</th><th>Copy Paste Cheat</th></tr></thead>
 <tbody><tr><td>Alkanet Flower</td><td>0003365C</td><td>player.additem 0003365C 1</td></tr>
 <tr><td>Alocasia Fruit</td><td>0001AE7A</td><td>player.additem 0001AE7A 1</td></tr>
@@ -1447,9 +1475,9 @@
 <tr><td>Withering Moon</td><td>0001B6B3</td><td>player.additem 0001B6B3 1</td></tr>
 <tr><td>Wormwood Leaves</td><td>000A793E</td><td>player.additem 000A793E 1</td></tr>
 <tr><td>Worm’s Head Cap</td><td>0001B5AA</td><td>player.additem 0001B5AA 1</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Books and Scrolls IDs</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Books and Scrolls IDs</h2><div class="filter-box"><input type="text" id="Books_and_Scrolls_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Book ID</th><th>Copy Paste Cheat</th></tr></thead>
 <tbody><tr><td>16 Accords of Madness, v. IX</td><td>0008BDCA</td><td>player.additem 0008BDCA 1</td></tr>
 <tr><td>16 Accords of Madness, v. VI</td><td>0008BDCB</td><td>player.additem 0008BDCB 1</td></tr>
@@ -2333,9 +2361,9 @@
 <tr><td>Words and Philosophy</td><td>000243E3</td><td>player.additem 000243E3 1</td></tr>
 <tr><td>Worn, Faded Note</td><td>0002C500</td><td>player.additem 0002C500 1</td></tr>
 <tr><td>Zealotry</td><td>0006987D</td><td>player.additem 0006987D 1</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Clothing, Amulets, and Rings IDs</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Clothing, Amulets, and Rings IDs</h2><div class="filter-box"><input type="text" id="Clothing,_Amulets,_and_Rings_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>ID</th><th>Copy Paste Cheat</th></tr></thead>
 <tbody><tr><td>Acrobatics Pants</td><td>00048981</td><td>player.additem 00048981 1</td></tr>
 <tr><td>Acrobat’s Amulet</td><td>00098457</td><td>player.additem 00098457 1</td></tr>
@@ -2874,9 +2902,9 @@
 <tr><td>Wrist Irons</td><td>000BE335</td><td>player.additem 000BE335 1</td></tr>
 <tr><td>Zealot’s Hood</td><td>000525AD</td><td>player.additem 000525AD 1</td></tr>
 <tr><td>Zealot’s Robe</td><td>000525AC</td><td>player.additem 000525AC 1</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Horses IDs</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Horses IDs</h2><div class="filter-box"><input type="text" id="Horses_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Horse ID</th><th>Copy Paste Cheat</th></tr></thead>
 <tbody><tr><td>Armored Akatosh Bay Bravil</td><td>0C014DCD</td><td>player.placeatme 0C014DCD 1</td></tr>
 <tr><td>Armored Akatosh Bay Skingrad</td><td>0C014DCE</td><td>player.placeatme 0C014DCE 1</td></tr>
@@ -2926,9 +2954,9 @@
 <tr><td>Shadowmere (Armored)</td><td>0300211C</td><td>player.placeatme 0300211C 1</td></tr>
 <tr><td>Unicorn</td><td>0001EC58</td><td>Player.Placeatme 0001EC58 1</td></tr>
 <tr><td>White Horse</td><td>0004DE8D</td><td>Player.Placeatme 0004DE8D 1</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Keys IDs</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Keys IDs</h2><div class="filter-box"><input type="text" id="Keys_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Key ID</th><th>Copy Paste Cheat</th></tr></thead>
 <tbody><tr><td>A Rusty Key</td><td>00024FE9</td><td>player.additem 00024FE9 1</td></tr>
 <tr><td>A Warlock’s Luck Key</td><td>0000A076</td><td>player.additem 0000A076 1</td></tr>
@@ -3390,9 +3418,9 @@
 <tr><td>Xeddefen key</td><td>000171E4</td><td>player.additem 000171E4 1</td></tr>
 <tr><td>Xiditte Cell Key</td><td>00076907</td><td>player.additem 00076907 1</td></tr>
 <tr><td>Zoe Malene’s Key</td><td>000749DF</td><td>player.additem 000749DF 1</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Locations IDs</h2><div class="filter-box"><label for="regionTypeSelect">Filter by Region/Type:</label><select id="regionTypeSelect"><option value="">--All--</option></select><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table id="location-ids">
+<section><h2>Locations IDs</h2><div class="filter-box"><label for="regionTypeSelect">Filter by Region/Type:</label><select id="regionTypeSelect"><option value="">--All--</option></select><input type="text" id="Locations_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table id="location-ids">
 <thead><tr><th>Location ID</th><th>Region/Type</th></tr></thead>
 <tbody><tr><td>AbandonedMine</td><td>Mines</td></tr>
 <tr><td>AbandonedMine02</td><td>Mines</td></tr>
@@ -4019,9 +4047,9 @@
 <tr><td>XPXedilian02</td><td>Ayleid Ruins</td></tr>
 <tr><td>YellowTickCave</td><td>Cave</td></tr>
 <tr><td>YellowTickCave02</td><td>Cave</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Miscellaneous IDs</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Miscellaneous IDs</h2><div class="filter-box"><input type="text" id="Miscellaneous_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>ID</th><th>Copy Paste Cheat</th></tr></thead>
 <tbody><tr><td>Active Focus Crystal</td><td>0004FEE9</td><td>player.additem 0004FEE9 1</td></tr>
 <tr><td>Agarmir’s Shovel</td><td>0001D0AF</td><td>player.additem 0001D0AF 1</td></tr>
@@ -4297,9 +4325,9 @@
 <tr><td>West Weald Bear Fang</td><td>0018AE3F</td><td>player.additem 0018AE3F 1</td></tr>
 <tr><td>Wolf Pelt</td><td>000228E2</td><td>player.additem 000228E2 1</td></tr>
 <tr><td>Yarn</td><td>00025205</td><td>player.additem 00025205 1</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>NPC IDs</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>NPC IDs</h2><div class="filter-box"><input type="text" id="NPC_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Base ID</th></tr></thead>
 <tbody><tr><td>A Stranger</td><td>0000A2A5</td></tr>
 <tr><td>Abhuki</td><td>000389B8</td></tr>
@@ -5434,9 +5462,9 @@
 <tr><td>Zabhila</td><td>00026AEF</td></tr>
 <tr><td>Zahrasha</td><td>000352B1</td></tr>
 <tr><td>Zedrick Green</td><td>0800398E</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Potions and Drinks IDs</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Potions and Drinks IDs</h2><div class="filter-box"><input type="text" id="Potions_and_Drinks_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Potion ID</th><th>Copy Paste Cheat</th></tr></thead>
 <tbody><tr><td>Ale</td><td>000B1200</td><td>player.additem 000B1200 1</td></tr>
 <tr><td>Argonian Bloodwine</td><td>0100a6a8</td><td>player.additem 0100a6a8 1</td></tr>
@@ -5695,9 +5723,9 @@
 <tr><td>Weak Potion of the Sea</td><td>00009324</td><td>player.additem 00009324 1</td></tr>
 <tr><td>Weak Potion of Warmth</td><td>0009848B</td><td>player.additem 0009848B 1</td></tr>
 <tr><td>Weak Potion of Willpower</td><td>00056E51</td><td>player.additem 00056E51 1</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Spells IDs</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Spells IDs</h2><div class="filter-box"><input type="text" id="Spells_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Spell ID</th><th>Effect</th><th>Copy Paste Cheat</th></tr></thead>
 <tbody><tr><td>Absorb Attribute: Agility</td><td>000A936D</td><td>Absorb Agility 5 pts for 20 secs on Touch</td><td>player.addspell 000A936D</td></tr>
 <tr><td>Absorb Attribute: Endurance</td><td>000A936E</td><td>Absorb Endurance 5 pts for 20 secs on Touch</td><td>player.addspell 000A936E</td></tr>
@@ -6123,9 +6151,9 @@
 <tr><td>Wizard’s Fury</td><td>000C481C</td><td>Level 20 (Journeyman) Fire Damage 6 pt for 10 secs on Target&lt;br&gt;Frost Damage 20 pts on Target&lt;br&gt;Shock Damage 20 pts on Target</td><td>player.addspell 000C481C</td></tr>
 <tr><td>Wizard’s Fury</td><td>000C481D</td><td>Level 25 (Expert) Fire Damage 8 pt for 10 secs on Target&lt;br&gt;Frost Damage 20 pts on Target&lt;br&gt;Shock Damage 20 pts on Target</td><td>player.addspell 000C481D</td></tr>
 <tr><td>Wizard’s Fury</td><td>000C481E</td><td>Level 30 (Expert) Fire Damage 10 pt for 10 secs on Target&lt;br&gt;Frost Damage 30 pts on Target&lt;br&gt;Shock Damage 30 pts on Target</td><td>player.addspell 000C481E</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Soul Gems IDs</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Soul Gems IDs</h2><div class="filter-box"><input type="text" id="Soul_Gems_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Soul Gem ID</th><th>Copy Paste Cheat</th></tr></thead>
 <tbody><tr><td>Azura’s Star</td><td>00000193</td><td>player.additem 00000193 1</td></tr>
 <tr><td>Black Soul Gem</td><td>00000192</td><td>player.additem 00000192 1</td></tr>
@@ -6154,9 +6182,9 @@
 <tr><td>Lesser Soul Gem</td><td>000382D3</td><td>player.additem 000382D3 1</td></tr>
 <tr><td>Petty Soul Gem</td><td>00023D67</td><td>player.additem 00023D67 1</td></tr>
 <tr><td>Petty Soul Gem</td><td>000382D1</td><td>player.additem 000382D1 1</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Sigil Stone IDs</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Sigil Stone IDs</h2><div class="filter-box"><input type="text" id="Sigil_Stone_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Effect</th><th>Descendent ID</th><th>Subjacent ID</th><th>Latent ID</th><th>Ascendent ID</th><th>Transcendent ID</th></tr></thead>
 <tbody><tr><td>Absorb Agility, Absorb Endurance</td><td>00041FB1</td><td>00041FB2</td><td>00041FB3</td><td>00041FB4</td><td>00041FB5</td></tr>
 <tr><td>Absorb Endurance, Absorb Fatigue</td><td>00041FB7</td><td>00041FB8</td><td>00041FB9</td><td>00041FBA</td><td>00041FBB</td></tr>
@@ -6188,9 +6216,9 @@
 <tr><td>Silence, Soul Trap</td><td>00042089</td><td>0004208B</td><td>0004208C</td><td>0004208D</td><td>0004208E</td></tr>
 <tr><td>Soul Trap, Turn Undead</td><td>00042096</td><td>00042097</td><td>00042098</td><td>00042099</td><td>0004209A</td></tr>
 <tr><td>Turn Undead, Fortify Agility</td><td>0004209C</td><td>0004209D</td><td>0004209E</td><td>0004209F</td><td>0004209B</td></tr>
-</tbody></table></section>
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
-<section><h2>Weapons IDs</h2><div class="filter-box"><input type="text" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
+<section><h2>Weapons IDs</h2><div class="filter-box"><input type="text" id="Weapons_IDs" placeholder="Search..." onkeyup="filterTable(event, this)"></div><table>
 <thead><tr><th>Name</th><th>Weapon ID</th><th>Copy Paste Cheat</th></tr></thead>
 <tbody><tr><td>Akavari Sunderblade</td><td>000CA154</td><td>player.additem 000CA154 1</td></tr>
 <tr><td>Akavari Warblade</td><td>000CA155</td><td>player.additem 000CA155 1</td></tr>
@@ -7459,659 +7487,7 @@
 <tr><td>Worn Golden Mace</td><td>00041EBA</td><td>player.additem 00041EBA 1</td></tr>
 <tr><td>Worn Golden Shortsword</td><td>00041EB7</td><td>player.additem 00041EB7 1</td></tr>
 <tr><td>Worn Golden Waraxe</td><td>00041EB6</td><td>player.additem 00041EB6 1</td></tr>
-</tbody></table></section>
-
-<!-- Example for Location IDs Table with dropdown in the filter-box,
-     and mark tables you want special copy on as id="armor-ids", etc. -->
-
-<section>
-  <h2>Location IDs</h2>
-  <div class="filter-box">
-    <label for="regionTypeSelect">Filter by Region/Type:</label>
-    <select id="regionTypeSelect" onchange="filterByRegionType(this)">
-      <option value="">--All--</option>
-      <!-- dynamically filled, see JS -->
-    </select>
-    <input type="text" placeholder="Search..." onkeyup="filterTable(event, this)" style="margin-top:6px;">
-  </div>
-  <!-- *** Make sure your table has an id for targeting, e.g.: id="location-ids" *** -->
-  <table id="location-ids">
-    <thead>
-      <tr>
-        <th>Location ID</th>
-        <th>Region/Type</th>
-      </tr>
-    </thead>
-    <tbody>
-		<tr><td>AbandonedMine</td><td>Mines</td></tr>
-		<tr><td>AbandonedMine02</td><td>Mines</td></tr>
-		<tr><td>AleswellInn</td><td>Inn</td></tr>
-		<tr><td>AleswellSakeepasHouse</td><td>House</td></tr>
-		<tr><td>AleswellShagolgroBumphsHouse</td><td>House</td></tr>
-		<tr><td>AmelionFamilyTomb</td><td>Cave</td></tr>
-		<tr><td>AmelionFamilyTomb02</td><td>Cave</td></tr>
-		<tr><td>Anga</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Anutwyll</td><td>Ayleid Ruins</td></tr>
-		<tr><td>AnvilArvenaThelasBasement</td><td>House</td></tr>
-		<tr><td>AnvilCastleSmugglersCave</td><td>Cave</td></tr>
-		<tr><td>AnvilChapelHall</td><td>Temple</td></tr>
-		<tr><td>AnvilChapelUndercroft</td><td>Temple</td></tr>
-		<tr><td>AnvilLighthouseBasement</td><td>House</td></tr>
-		<tr><td>ApplewatchInterior</td><td>House</td></tr>
-		<tr><td>Arpenia</td><td>Ayleid Ruins</td></tr>
-		<tr><td>ArrowshaftCavern</td><td>Cave</td></tr>
-		<tr><td>ArrowshaftCavern02</td><td>Cave</td></tr>
-		<tr><td>ArrowshaftCavern03</td><td>Cave</td></tr>
-		<tr><td>Atatar</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Atatar02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Atatar03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Atatar04</td><td>Ayleid Ruins</td></tr>
-		<tr><td>BarrenCave</td><td>Cave</td></tr>
-		<tr><td>BarrenMine</td><td>Mines</td></tr>
-		<tr><td>BattlehornCastleBlacksmithHouse</td><td>Fort</td></tr>
-		<tr><td>BattlehornCastleTowerN</td><td>Fort</td></tr>
-		<tr><td>BattlehornCastleTowerS</td><td>Fort</td></tr>
-		<tr><td>Bawn</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Bawn02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Bawn03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>BedrockBreak</td><td>Cave</td></tr>
-		<tr><td>Belda</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Belda02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Beldaburo</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Beldaburo02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>BelletorsFolly</td><td>Mines</td></tr>
-		<tr><td>BelletorsFolly02</td><td>Mines</td></tr>
-		<tr><td>BelletorsFolly03</td><td>Mines</td></tr>
-		<tr><td>BlackRockCaverns</td><td>Cave</td></tr>
-		<tr><td>BlackRockCaverns02</td><td>Cave</td></tr>
-		<tr><td>BlackRockCaverns03</td><td>Cave</td></tr>
-		<tr><td>BlankenMarchHouse01</td><td>House</td></tr>
-		<tr><td>BlankenMarchHouse02</td><td>House</td></tr>
-		<tr><td>BlankenMarchHouse03</td><td>House</td></tr>
-		<tr><td>BleakersWayArvinDalvilusHouse</td><td>House</td></tr>
-		<tr><td>BleakersWayGoodwillInn</td><td>Inn</td></tr>
-		<tr><td>BleakersWayHrolUlfgarsHouse</td><td>House</td></tr>
-		<tr><td>BleakersWayMalyaniDalvilusHouse</td><td>House</td></tr>
-		<tr><td>BleakersWayRedasDalvilusHouse</td><td>House</td></tr>
-		<tr><td>BleakersWayRedasDalvilusHouse</td><td>House</td></tr>
-		<tr><td>BleakersWaySathaDalvilusHouse</td><td>House</td></tr>
-		<tr><td>BleakFlatsCave</td><td>Cave</td></tr>
-		<tr><td>BleakMine</td><td>Mines</td></tr>
-		<tr><td>BloodcrustCavern</td><td>Cave</td></tr>
-		<tr><td>BloodmayneCave</td><td>Cave</td></tr>
-		<tr><td>BloodmayneCave02</td><td>Cave</td></tr>
-		<tr><td>BloodRunCave</td><td>Cave</td></tr>
-		<tr><td>BorderWatchJriskasHouse</td><td>House</td></tr>
-		<tr><td>BorderWatchMdashasHouse</td><td>House</td></tr>
-		<tr><td>BorderWatchMdirrsHouse</td><td>House</td></tr>
-		<tr><td>BorderWatchRibassasHouse</td><td>House</td></tr>
-		<tr><td>BorderWatchTsalajmasHouse</td><td>House</td></tr>
-		<tr><td>BorealStoneCave</td><td>Cave</td></tr>
-		<tr><td>BramblepointCave</td><td>Cave</td></tr>
-		<tr><td>BramblePointCave02</td><td>Cave</td></tr>
-		<tr><td>BramblePointCave03</td><td>Cave</td></tr>
-		<tr><td>BravilAleronLochesHouse</td><td>House</td></tr>
-		<tr><td>BravilAndragilHouse</td><td>House</td></tr>
-		<tr><td>BravilChapelGreatHall</td><td>Temple</td></tr>
-		<tr><td>BravilChapelofMara</td><td>Temple</td></tr>
-		<tr><td>BravilChapelUndercroft</td><td>Temple</td></tr>
-		<tr><td>BravilCitySwimmerHouse</td><td>House</td></tr>
-		<tr><td>BravilCryptOfTheNightMother</td><td>Cave</td></tr>
-		<tr><td>BravilFightersGuild</td><td>Guild</td></tr>
-		<tr><td>BravilFightersGuild2ndFloor</td><td>Guild</td></tr>
-		<tr><td>BravilFightersGuild3rdFloor</td><td>Guild</td></tr>
-		<tr><td>BravilFightersGuildBasement</td><td>Guild</td></tr>
-		<tr><td>BravilHouseforSale</td><td>House</td></tr>
-		<tr><td>BravilLonelySuitorLodge</td><td>Inn</td></tr>
-		<tr><td>BravilMagesGuild2ndFloor</td><td>Guild</td></tr>
-		<tr><td>BravilMagesGuild3rdFloor</td><td>Guild</td></tr>
-		<tr><td>BravilMagesGuildBasement</td><td>Guild</td></tr>
-		<tr><td>BravilRanalineHouse</td><td>House</td></tr>
-		<tr><td>BravilSilverHomeonthewater</td><td>Inn</td></tr>
-		<tr><td>BravilSilverHomeonthewater2ndFloor</td><td>Inn</td></tr>
-		<tr><td>BravilSilverHomeonthewater3rdFloor</td><td>Inn</td></tr>
-		<tr><td>BravilStable</td><td>Shop</td></tr>
-		<tr><td>BravilTheArcherParadox</td><td>Shop</td></tr>
-		<tr><td>BravilTheFairDeal</td><td>Shop</td></tr>
-		<tr><td>BravilUngolimHouse</td><td>House</td></tr>
-		<tr><td>BravilVaronVamorisHouse</td><td>House</td></tr>
-		<tr><td>BreakneckCave</td><td>Cave</td></tr>
-		<tr><td>BreakneckCave02</td><td>Cave</td></tr>
-		<tr><td>BreakneckCave03</td><td>Cave</td></tr>
-		<tr><td>BrinaCrossInn</td><td>Inn</td></tr>
-		<tr><td>BrindleHome</td><td>House</td></tr>
-		<tr><td>BrindleHome02</td><td>House</td></tr>
-		<tr><td>BrittlerockCave</td><td>Cave</td></tr>
-		<tr><td>BrittlerockCave02</td><td>Cave</td></tr>
-		<tr><td>BrokenPromisesCave</td><td>Cave</td></tr>
-		<tr><td>BrumaArnorasHouse</td><td>House</td></tr>
-		<tr><td>BrumaBaenlinsBasement</td><td>House</td></tr>
-		<tr><td>BrumaBaenlinsHouse</td><td>House</td></tr>
-		<tr><td>BrumaBradonLirriansBasement</td><td>House</td></tr>
-		<tr><td>BrumaBradonLirriansHouse</td><td>House</td></tr>
-		<tr><td>BrumaBrotchCalusHouse</td><td>House</td></tr>
-		<tr><td>BrumaCaverns</td><td>Cave</td></tr>
-		<tr><td>BrumaChapel</td><td>Temple</td></tr>
-		<tr><td>BrumaChapelHall</td><td>Temple</td></tr>
-		<tr><td>BrumaChapelUndercroft</td><td>Temple</td></tr>
-		<tr><td>BrumaFightersGuild</td><td>Guild</td></tr>
-		<tr><td>BrumaFightersGuildBasement</td><td>Guild</td></tr>
-		<tr><td>BrumaHammerAndAxe</td><td>Shop</td></tr>
-		<tr><td>BrumaHelviusCeciasHouse</td><td>House</td></tr>
-		<tr><td>BrumaHonmundsHouse</td><td>House</td></tr>
-		<tr><td>BrumaHouseForSale</td><td>House</td></tr>
-		<tr><td>BrumaIstirusBrolusHouse</td><td>House</td></tr>
-		<tr><td>BrumaIstriusBrolusBasement</td><td>House</td></tr>
-		<tr><td>BrumaJearlsHouse</td><td>House</td></tr>
-		<tr><td>BrumaJearlsHouseBasement</td><td>House</td></tr>
-		<tr><td>BrumaJerallView</td><td>Inn</td></tr>
-		<tr><td>BrumaJerallViewBasement</td><td>Inn</td></tr>
-		<tr><td>BrumaJGhastasHouse</td><td>House</td></tr>
-		<tr><td>BrumaJGhastasHouseTrainingRoom</td><td>House</td></tr>
-		<tr><td>BrumaLyraRosentiasHouse</td><td>House</td></tr>
-		<tr><td>BrumaMagesGuild</td><td>Guild</td></tr>
-		<tr><td>BrumaMagesGuildBasement</td><td>Guild</td></tr>
-		<tr><td>BrumaMagesGuildBasementDestroyed</td><td>Guild</td></tr>
-		<tr><td>BrumaMagesGuildDestroyed</td><td>Guild</td></tr>
-		<tr><td>BrumaNordWinds</td><td>Shop</td></tr>
-		<tr><td>BrumaNovaroma</td><td>Shop</td></tr>
-		<tr><td>BrumaOlavsTapAndTack</td><td>Inn</td></tr>
-		<tr><td>BrumaOngarsHouse</td><td>Shop</td></tr>
-		<tr><td>BrumaRegnersHouse</td><td>Shop</td></tr>
-		<tr><td>BrumaWildeyeStables</td><td>Shop</td></tr>
-		<tr><td>CadlewChapel</td><td>Temple</td></tr>
-		<tr><td>CapstoneCave</td><td>Cave</td></tr>
-		<tr><td>CapstoneCave02</td><td>Cave</td></tr>
-		<tr><td>Ceyatatar</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Ceyatatar02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Ceyatatar03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>CharcoalCave</td><td>Cave</td></tr>
-		<tr><td>CharcoalCave02</td><td>Cave</td></tr>
-		<tr><td>CharcoalCave03</td><td>Cave</td></tr>
-		<tr><td>CheydinhalBlackWatersideStables</td><td>Shop</td></tr>
-		<tr><td>CheydinhalBorbasGoodsandStoresBasement</td><td>Shop</td></tr>
-		<tr><td>CheydinhalBridgeInnBasement</td><td>Inn</td></tr>
-		<tr><td>CheydinhalChapelHall</td><td>Temple</td></tr>
-		<tr><td>CheydinhalChapelOfArkay</td><td>Temple</td></tr>
-		<tr><td>CheydinhalChapelUndercroft</td><td>Temple</td></tr>
-		<tr><td>CheydinhalKnightsBasement</td><td>Guild</td></tr>
-		<tr><td>CheydinhalLlevanaNedarensBasement</td><td>House</td></tr>
-		<tr><td>CheydinhalMagesGuildBasement</td><td>Guild</td></tr>
-		<tr><td>CheydinhalOrumHouseBasement</td><td>House</td></tr>
-		<tr><td>CheydinhalRythesBasement</td><td>House</td></tr>
-		<tr><td>CheydinhalSanctuaryQuarters</td><td>Temple</td></tr>
-		<tr><td>CheydinhalSanctuaryTrainingRoom</td><td>Temple</td></tr>
-		<tr><td>CheydinhalWillowBankBasement</td><td>House</td></tr>
-		<tr><td>ChorrolAlbericLittesBasement</td><td>House</td></tr>
-		<tr><td>ChorrolArena</td><td>Arena</td></tr>
-		<tr><td>ChorrolCastaScriboniasBasement</td><td>House</td></tr>
-		<tr><td>ChorrolChapelHall</td><td>Temple</td></tr>
-		<tr><td>ChorrolChapelOfStendarr</td><td>Temple</td></tr>
-		<tr><td>ChorrolChapelUndercroft</td><td>Temple</td></tr>
-		<tr><td>ChorrolEugalBelettesBasement</td><td>House</td></tr>
-		<tr><td>ChorrolFrancoisMotierresBasement</td><td>House</td></tr>
-		<tr><td>ChorrolHonditarsHouse</td><td>House</td></tr>
-		<tr><td>ChorrolJirolinDoransBasement</td><td>House</td></tr>
-		<tr><td>ChorrolMagesGuildBasement</td><td>Guild</td></tr>
-		<tr><td>ChorrolMalintusAncrusHouse</td><td>House</td></tr>
-		<tr><td>ChorrolModrynOreynsHouse</td><td>House</td></tr>
-		<tr><td>ChorrolNorthCountryStables</td><td>Shop</td></tr>
-		<tr><td>ChorrolReynaldJemanesBasement</td><td>House</td></tr>
-		<tr><td>ChorrolRimalusBruiantsBasement</td><td>House</td></tr>
-		<tr><td>ChorrolTheGreyMare</td><td>Inn</td></tr>
-		<tr><td>ChorrolValusOdiilsHouse</td><td>House</td></tr>
-		<tr><td>CloudRulerTempleArmory</td><td>Temple</td></tr>
-		<tr><td>CloudRulerTempleEastWing</td><td>Temple</td></tr>
-		<tr><td>CloudRulerTempleGreatHall</td><td>Temple</td></tr>
-		<tr><td>CloudRulerTempleWestWing</td><td>Temple</td></tr>
-		<tr><td>CollapsedMine</td><td>Mines</td></tr>
-		<tr><td>CollapsedMine02</td><td>Mines</td></tr>
-		<tr><td>CrackedWoodCave</td><td>Cave</td></tr>
-		<tr><td>CrayfishCave</td><td>Cave</td></tr>
-		<tr><td>CrayfishCave02</td><td>Cave</td></tr>
-		<tr><td>CrayfishCave03</td><td>Cave</td></tr>
-		<tr><td>CrayfishCave04</td><td>Cave</td></tr>
-		<tr><td>CrayfishCave05</td><td>Cave</td></tr>
-		<tr><td>CropsfordBarthelGernandsHouse</td><td>House</td></tr>
-		<tr><td>CropsfordBincalsHouse</td><td>House</td></tr>
-		<tr><td>CrumblingMine</td><td>Mines</td></tr>
-		<tr><td>Culotte</td><td>Ayleid Ruins</td></tr>
-		<tr><td>CursedMine</td><td>Mines</td></tr>
-		<tr><td>CursedMine02</td><td>Mines</td></tr>
-		<tr><td>CursedMine03</td><td>Mines</td></tr>
-		<tr><td>Dark04Dungeon01</td><td>Cave</td></tr>
-		<tr><td>Dark04Dungeon02</td><td>Cave</td></tr>
-		<tr><td>Dark04Dungeon03</td><td>Cave</td></tr>
-		<tr><td>Dark04Sewers01</td><td>Cave</td></tr>
-		<tr><td>Dark04Sewers02</td><td>Cave</td></tr>
-		<tr><td>Dark04Sewers03</td><td>Cave</td></tr>
-		<tr><td>DarkfathomCave</td><td>Cave</td></tr>
-		<tr><td>DarkFissure</td><td>Cave</td></tr>
-		<tr><td>DarkFissure02</td><td>Cave</td></tr>
-		<tr><td>DarkFissure03</td><td>Cave</td></tr>
-		<tr><td>DerelictMine</td><td>Mines</td></tr>
-		<tr><td>DerelictMine02</td><td>Mines</td></tr>
-		<tr><td>DerelictMine03</td><td>Mines</td></tr>
-		<tr><td>DesertedMine</td><td>Mines</td></tr>
-		<tr><td>DesertedMine02</td><td>Mines</td></tr>
-		<tr><td>DesolateMine</td><td>Mines</td></tr>
-		<tr><td>DL9c05</td><td>Fort</td></tr>
-		<tr><td>DL9c06</td><td>Fort</td></tr>
-		<tr><td>DL9c10</td><td>Fort</td></tr>
-		<tr><td>DLDunbarrowHaven</td><td>Cave</td></tr>
-		<tr><td>DLDunbarrowHaven02</td><td>Cave</td></tr>
-		<tr><td>DLDunbarrowHaven03</td><td>Cave</td></tr>
-		<tr><td>DoomedMine</td><td>Mines</td></tr>
-		<tr><td>DrakeloweFarm</td><td>House</td></tr>
-		<tr><td>DrakeloweFarmBasement</td><td>House</td></tr>
-		<tr><td>DzonotCave</td><td>Cave</td></tr>
-		<tr><td>DzonotCave02</td><td>Cave</td></tr>
-		<tr><td>EchoCave</td><td>Cave</td></tr>
-		<tr><td>EchoCave02</td><td>Cave</td></tr>
-		<tr><td>EchoCave03</td><td>Cave</td></tr>
-		<tr><td>EchoMine</td><td>Mines</td></tr>
-		<tr><td>Elenglynn</td><td>Ayleid Ruins</td></tr>
-		<tr><td>EmptyMine</td><td>Mines</td></tr>
-		<tr><td>Emptymine02</td><td>Mines</td></tr>
-		<tr><td>Emptymine03</td><td>Mines</td></tr>
-		<tr><td>ExhaustedMine</td><td>Mines</td></tr>
-		<tr><td>ExhaustedMine02</td><td>Mines</td></tr>
-		<tr><td>ExhaustedMine03</td><td>Mines</td></tr>
-		<tr><td>FallenRockCave</td><td>Cave</td></tr>
-		<tr><td>Fanacas</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Fanacasecul</td><td>Ayleid Ruins</td></tr>
-		<tr><td>FaregylInterior</td><td>Inn</td></tr>
-		<tr><td>FatbackCave</td><td>Cave</td></tr>
-		<tr><td>FatbackCave02</td><td>Cave</td></tr>
-		<tr><td>FatbackCave03</td><td>Cave</td></tr>
-		<tr><td>FelgageldtCave</td><td>Cave</td></tr>
-		<tr><td>FelgageldtCave02</td><td>Cave</td></tr>
-		<tr><td>FieldhouseCave</td><td>Cave</td></tr>
-		<tr><td>FieldhouseCave02</td><td>Cave</td></tr>
-		<tr><td>FieldhouseCave03</td><td>Cave</td></tr>
-		<tr><td>FingerbowlCave</td><td>Cave</td></tr>
-		<tr><td>FingerbowlCave02</td><td>Cave</td></tr>
-		<tr><td>FingerbowlCave03</td><td>Cave</td></tr>
-		<tr><td>FingerbowlCave04</td><td>Cave</td></tr>
-		<tr><td>FloodedMine</td><td>Mines</td></tr>
-		<tr><td>ForsakenMine</td><td>Mines</td></tr>
-		<tr><td>ForsakenMine02</td><td>Mines</td></tr>
-		<tr><td>FortIstirus</td><td>Fort</td></tr>
-		<tr><td>FrostFireCave</td><td>Cave</td></tr>
-		<tr><td>FyrelightCave</td><td>Cave</td></tr>
-		<tr><td>FyrelightCave02</td><td>Cave</td></tr>
-		<tr><td>FyrelightCave03</td><td>Cave</td></tr>
-		<tr><td>GarlasAgea</td><td>Ayleid Ruins</td></tr>
-		<tr><td>GlademistCave</td><td>Cave</td></tr>
-		<tr><td>GoblinJimsCave</td><td>Cave</td></tr>
-		<tr><td>GoblinJimsCave02</td><td>Cave</td></tr>
-		<tr><td>GoblinJimsCave03</td><td>Cave</td></tr>
-		<tr><td>GottlefontHouse</td><td>House</td></tr>
-		<tr><td>GottlefontPrioryMonastery</td><td>Temple</td></tr>
-		<tr><td>GrayrockCave</td><td>Cave</td></tr>
-		<tr><td>GrayrockCave02</td><td>Cave</td></tr>
-		<tr><td>GreenmeadCave</td><td>Cave</td></tr>
-		<tr><td>GreenmeadCave02</td><td>Cave</td></tr>
-		<tr><td>GreenmeadCave03</td><td>Cave</td></tr>
-		<tr><td>Greyland</td><td>House</td></tr>
-		<tr><td>GuttedMine</td><td>Mines</td></tr>
-		<tr><td>GwedenFarmBasement</td><td>House</td></tr>
-		<tr><td>HackdirtCaverns</td><td>Cave</td></tr>
-		<tr><td>HackdirtChapel</td><td>Temple</td></tr>
-		<tr><td>HackdirtJivHirielsHouse</td><td>House</td></tr>
-		<tr><td>HackdirtMarlenaBrussinersBasement</td><td>House</td></tr>
-		<tr><td>HackdirtMoslinsDryGoodsBasement</td><td>Shop</td></tr>
-		<tr><td>Hame</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Hame02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Hame03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>HarlunsWatchAengvirsHouse</td><td>House</td></tr>
-		<tr><td>HarlunsWatchinteriorDeetumJasHouse</td><td>House</td></tr>
-		<tr><td>HarlunWatchinteriorDraranaThelisHouse</td><td>House</td></tr>
-		<tr><td>HarmFolly</td><td>House</td></tr>
-		<tr><td>HauntedMine</td><td>Mines</td></tr>
-		<tr><td>HauntedMIne02</td><td>Mines</td></tr>
-		<tr><td>HaynoteCave</td><td>Cave</td></tr>
-		<tr><td>HaynoteCave02</td><td>Cave</td></tr>
-		<tr><td>HaynoteCave03</td><td>Cave</td></tr>
-		<tr><td>HornCave</td><td>Cave</td></tr>
-		<tr><td>HornCave02</td><td>Cave</td></tr>
-		<tr><td>HornCave03</td><td>Cave</td></tr>
-		<tr><td>HowlingCave</td><td>Cave</td></tr>
-		<tr><td>HowlingCave02</td><td>Cave</td></tr>
-		<tr><td>HrotaCave</td><td>Cave</td></tr>
-		<tr><td>HrotandaVale</td><td>Ayleid Ruins</td></tr>
-		<tr><td>HrotandaVale02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>ICArcaneUniversityArchMagesTowerCouncil</td><td>Guild</td></tr>
-		<tr><td>ICArcaneUniversityImperialWatchtower</td><td>Guild</td></tr>
-		<tr><td>ICArcaneUniversityImperialWatchtowerGuardsQuarters</td><td>Guild</td></tr>
-		<tr><td>ICArenaBloodworks</td><td>Arena</td></tr>
-		<tr><td>ICArenaDistrict</td><td>Arena</td></tr>
-		<tr><td>ICArenaGrandChampion</td><td>Arena</td></tr>
-		<tr><td>ICArenaSpectators</td><td>Arena</td></tr>
-		<tr><td>ICElvenGardensGeemJasaiinsHouse</td><td>House</td></tr>
-		<tr><td>ICElvenGardensKastusSintavsHouse</td><td>House</td></tr>
-		<tr><td>ICImperialLegionWatchTowerNTopGuardQuarters</td><td>Imperial</td></tr>
-		<tr><td>ICImperialLegionWatchTowerSEGuardQuarters</td><td>Imperial</td></tr>
-		<tr><td>ICImperialLegionWatchTowerSWTopGuardQuarters</td><td>Imperial</td></tr>
-		<tr><td>ICMarketDistrict</td><td>Imperial</td></tr>
-		<tr><td>ICTalosPlazaAgarmirsHouse</td><td>House</td></tr>
-		<tr><td>ICTalosPlazaAreldilsHouse</td><td>House</td></tr>
-		<tr><td>ICTalosPlazaDistrict</td><td>House</td></tr>
-		<tr><td>ICTalosPlazaTheTiberSeptimHotel</td><td>Inn</td></tr>
-		<tr><td>ICTempleDistrictHagaersHouseUpstairs</td><td>House</td></tr>
-		<tr><td>ICTempleDistrictMaranaRiansHouseUpstairs</td><td>House</td></tr>
-		<tr><td>ICTempleDistrictStantusVarridsHouseUpstairs</td><td>House</td></tr>
-		<tr><td>ICTempleDistrictTrenusDuroniusHouseUpstairs</td><td>House</td></tr>
-		<tr><td>ICWaterfrontAbandonedShack</td><td>House</td></tr>
-		<tr><td>ICWaterfrontArmandChristopheHouse</td><td>House</td></tr>
-		<tr><td>ICWaterfrontJairsShack</td><td>House</td></tr>
-		<tr><td>ICWaterfrontKvinchalsShack</td><td>House</td></tr>
-		<tr><td>ICWaterfrontMethredhelsHouse</td><td>House</td></tr>
-		<tr><td>ICWaterfrontMyvrynaAranoHouse</td><td>House</td></tr>
-		<tr><td>ICWaterfrontShackForSale</td><td>House</td></tr>
-		<tr><td>ImperialBridgeInnTavern</td><td>Inn</td></tr>
-		<tr><td>ImperialDungeon01</td><td>Imperial</td></tr>
-		<tr><td>ImperialDungeon02</td><td>Imperial</td></tr>
-		<tr><td>ImperialDungeon03</td><td>Imperial</td></tr>
-		<tr><td>ImperialDungeon04</td><td>Imperial</td></tr>
-		<tr><td>ImperialDungeon05</td><td>Imperial</td></tr>
-		<tr><td>ImperialSewers03</td><td>Imperial</td></tr>
-		<tr><td>ImperialSewersElvenGardens01</td><td>Imperial</td></tr>
-		<tr><td>ImperialSewersElvenGardens02</td><td>Imperial</td></tr>
-		<tr><td>ImperialSewersElvenGardens03</td><td>Imperial</td></tr>
-		<tr><td>ImperialSewerSystemArena</td><td>Imperial</td></tr>
-		<tr><td>ImperialSewerSystemImperialPalace</td><td>Imperial</td></tr>
-		<tr><td>ImperialSewerSystemMarketDistrict</td><td>Imperial</td></tr>
-		<tr><td>ImperialSewerSystemN01</td><td>Imperial</td></tr>
-		<tr><td>ImperialSewerSystemN02</td><td>Imperial</td></tr>
-		<tr><td>ImperialSewerSystemSE</td><td>Imperial</td></tr>
-		<tr><td>ImperialSewerSystemSW</td><td>Imperial</td></tr>
-		<tr><td>ImperialSewerSystemTalosPlaza</td><td>Imperial</td></tr>
-		<tr><td>ImperialSewerSystemTempleDistrict</td><td>Imperial</td></tr>
-		<tr><td>ImperialSewerSystemTG11a</td><td>Ayleid Ruins</td></tr>
-		<tr><td>ImperialSewerSystemTG11a2</td><td>Ayleid Ruins</td></tr>
-		<tr><td>ImperialSewerSystemTG11c</td><td>Ayleid Ruins</td></tr>
-		<tr><td>ImperialSewerSystemTG11d</td><td>Ayleid Ruins</td></tr>
-		<tr><td>InfestedMine</td><td>Mines</td></tr>
-		<tr><td>InfestedMine02</td><td>Mines</td></tr>
-		<tr><td>InfestedMine03</td><td>Mines</td></tr>
-		<tr><td>InnIllOmen</td><td>Inn</td></tr>
-		<tr><td>InnIllOmenBasement</td><td>Inn</td></tr>
-		<tr><td>IsolatedHouse</td><td>House</td></tr>
-		<tr><td>JakbenTombInterior</td><td>House</td></tr>
-		<tr><td>Kemen</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Kemen02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>KindredCavern</td><td>Cave</td></tr>
-		<tr><td>KindredCavern02</td><td>Cave</td></tr>
-		<tr><td>KindredCavern03</td><td>Cave</td></tr>
-		<tr><td>KingscrestCavern</td><td>Cave</td></tr>
-		<tr><td>KingscrestCavern02</td><td>Cave</td></tr>
-		<tr><td>KingscrestCavern03</td><td>Cave</td></tr>
-		<tr><td>KingscrestCavern04</td><td>Cave</td></tr>
-		<tr><td>KvatchChapelHall</td><td>Temple</td></tr>
-		<tr><td>KvatchChapelUndercroft</td><td>Temple</td></tr>
-		<tr><td>KvatchTent01</td><td>House</td></tr>
-		<tr><td>KvatchTent02</td><td>House</td></tr>
-		<tr><td>KvatchTentSavlianMatius</td><td>House</td></tr>
-		<tr><td>LairVile01</td><td>Cave</td></tr>
-		<tr><td>LairVile02</td><td>Cave</td></tr>
-		<tr><td>LairVile03</td><td>Cave</td></tr>
-		<tr><td>LairVile04</td><td>Cave</td></tr>
-		<tr><td>LakeArriusCaverns</td><td>Cave</td></tr>
-		<tr><td>LakeArriusShrineAntechamber01</td><td>Cave</td></tr>
-		<tr><td>LakeArriusShrineAntechamber02</td><td>Cave</td></tr>
-		<tr><td>LakeArriusShrineDagon</td><td>Cave</td></tr>
-		<tr><td>LeafrotCave</td><td>Cave</td></tr>
-		<tr><td>LeafrotCave02</td><td>Cave</td></tr>
-		<tr><td>LeyawiinBettoPlotiusHouse</td><td>House</td></tr>
-		<tr><td>LeyawiinCastleCountyHall</td><td>Castle</td></tr>
-		<tr><td>LeyawiinCastlePrivateQuarters</td><td>Castle</td></tr>
-		<tr><td>LeyawiinChapelHall</td><td>Temple</td></tr>
-		<tr><td>LeyawiinChapelOfZenithar</td><td>Temple</td></tr>
-		<tr><td>LeyawiinChapelUndercroft</td><td>Temple</td></tr>
-		<tr><td>LeyawiinCingorsHouse</td><td>House</td></tr>
-		<tr><td>LeyawiinCityWatchBarracks</td><td>House</td></tr>
-		<tr><td>LeyawiinDarJeesHouse</td><td>House</td></tr>
-		<tr><td>LeyawiinFiveRidersStable</td><td>Shop</td></tr>
-		<tr><td>LeyawiinOtumeelsHouse</td><td>House</td></tr>
-		<tr><td>LeyawiinWeebamNasHouse</td><td>House</td></tr>
-		<tr><td>Lindai01</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Lindai02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>LipsandTarn</td><td>Ayleid Ruins</td></tr>
-		<tr><td>LipsandTarn02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>LordDradsSlaveQuarters01</td><td>House</td></tr>
-		<tr><td>LordDradsSlaveQuarters02</td><td>House</td></tr>
-		<tr><td>LordRugdumphServants</td><td>House</td></tr>
-		<tr><td>LostBoyCaverns</td><td>Cave</td></tr>
-		<tr><td>LostBoyCaverns02</td><td>Cave</td></tr>
-		<tr><td>LostBoyCaverns03</td><td>Cave</td></tr>
-		<tr><td>Mackamentain</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Mackamentain02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Mackamentain03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Malada01</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Malada02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>MelusPetilusHouse</td><td>House</td></tr>
-		<tr><td>MemorialCave</td><td>Cave</td></tr>
-		<tr><td>MingoCave</td><td>Cave</td></tr>
-		<tr><td>MongrelsToothCave</td><td>Cave</td></tr>
-		<tr><td>Morahame</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Moranda</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Moranda02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Moranda03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>MossRockCavern</td><td>Cave</td></tr>
-		<tr><td>MuckValleyCavern</td><td>Cave</td></tr>
-		<tr><td>Nagastani</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Nagastani02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Narfinsel</td><td>Ayleid Ruins</td></tr>
-		<tr><td>NDKynarethCave</td><td>Ayleid Ruins</td></tr>
-		<tr><td>NDPrioryoftheNineBasement</td><td>Ayleid Ruins</td></tr>
-		<tr><td>NDPrioryoftheNineChapel</td><td>Ayleid Ruins</td></tr>
-		<tr><td>NDPrioryoftheNineUndercroft</td><td>Ayleid Ruins</td></tr>
-		<tr><td>NDVanua01</td><td>Ayleid Ruins</td></tr>
-		<tr><td>NDVanua02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Nenalata</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Nenalata02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Nenalata03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>NenyondTwyll</td><td>Ayleid Ruins</td></tr>
-		<tr><td>NenyondTwyll02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>NewtCave</td><td>Cave</td></tr>
-		<tr><td>NewtCave02</td><td>Cave</td></tr>
-		<tr><td>NewtCave03</td><td>Cave</td></tr>
-		<tr><td>Ninendava</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Niryastare</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Niryastare02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>NisinCave</td><td>Cave</td></tr>
-		<tr><td>Nonungalo</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Nonungalo02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>NonwyllCavern</td><td>Cave</td></tr>
-		<tr><td>NonwyllCavern02</td><td>Cave</td></tr>
-		<tr><td>Nornal</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Nornal02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Nornal03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Nornal04</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Nornalhorst</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Nornalhorst02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>OdiilFarm</td><td>House</td></tr>
-		<tr><td>Ondo</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Ondo02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>OnyxCaverns</td><td>Cave</td></tr>
-		<tr><td>OnyxCaverns02</td><td>Cave</td></tr>
-		<tr><td>OutlawEndresCave</td><td>Cave</td></tr>
-		<tr><td>OutlawEndresCave02</td><td>Cave</td></tr>
-		<tr><td>PellGateIrrokitheWidesHouse</td><td>House</td></tr>
-		<tr><td>PellGateShafayesHouse</td><td>House</td></tr>
-		<tr><td>PellGateTheSleepingMare</td><td>Inn</td></tr>
-		<tr><td>PillagedMine</td><td>Mines</td></tr>
-		<tr><td>PillagedMine02</td><td>Mines</td></tr>
-		<tr><td>Piukanda</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Piukanda02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Piukanda03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>PlunderedMine</td><td>Mines</td></tr>
-		<tr><td>PlunderedMine02</td><td>Mines</td></tr>
-		<tr><td>PotholeCaverns</td><td>Cave</td></tr>
-		<tr><td>QuickwaterCave</td><td>Cave</td></tr>
-		<tr><td>QuickwaterCave02</td><td>Cave</td></tr>
-		<tr><td>RedguardValleyCave</td><td>Cave</td></tr>
-		<tr><td>RedRubyCave</td><td>Cave</td></tr>
-		<tr><td>RedrubyCave02</td><td>Cave</td></tr>
-		<tr><td>RedwaterSlough</td><td>Cave</td></tr>
-		<tr><td>ReedstandCave</td><td>Cave</td></tr>
-		<tr><td>ReedstandCave02</td><td>Cave</td></tr>
-		<tr><td>RicketyMine</td><td>Mines</td></tr>
-		<tr><td>RicketyMine02</td><td>Mines</td></tr>
-		<tr><td>Rielle</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Rielle02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>RobbersGlenCave</td><td>Cave</td></tr>
-		<tr><td>RockBottomCaverns</td><td>Cave</td></tr>
-		<tr><td>RockmilkCave</td><td>Cave</td></tr>
-		<tr><td>RockmilkCave02</td><td>Cave</td></tr>
-		<tr><td>RockmilkCave03</td><td>Cave</td></tr>
-		<tr><td>RockmilkCave04</td><td>Cave</td></tr>
-		<tr><td>RolandJensericsCabin</td><td>House</td></tr>
-		<tr><td>RoxeyInn</td><td>Inn</td></tr>
-		<tr><td>SageGlenHollow</td><td>Cave</td></tr>
-		<tr><td>SageGlenHollow02</td><td>Cave</td></tr>
-		<tr><td>SandstoneCavern</td><td>Cave</td></tr>
-		<tr><td>SandstoneCavern02</td><td>Cave</td></tr>
-		<tr><td>SardavarLeed</td><td>Ayleid Ruins</td></tr>
-		<tr><td>SardavarLeed02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Sedor</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Sercen</td><td>Ayleid Ruins</td></tr>
-		<tr><td>SerpentHollowCave</td><td>Cave</td></tr>
-		<tr><td>SerpentHollowCave02</td><td>Cave</td></tr>
-		<tr><td>SerpentsTrail</td><td>Cave</td></tr>
-		<tr><td>ShadowsRestCavern</td><td>Cave</td></tr>
-		<tr><td>ShadowsRestCavern02</td><td>Cave</td></tr>
-		<tr><td>Shardrock</td><td>House</td></tr>
-		<tr><td>ShatteredMine</td><td>Mines</td></tr>
-		<tr><td>ShatteredMine02</td><td>Mines</td></tr>
-		<tr><td>ShatteredScalesCave</td><td>Cave</td></tr>
-		<tr><td>ShatteredScalesCave02</td><td>Cave</td></tr>
-		<tr><td>ShetcombeFarm</td><td>House</td></tr>
-		<tr><td>ShinboneCave</td><td>Cave</td></tr>
-		<tr><td>ShinboneCave02</td><td>Cave</td></tr>
-		<tr><td>SidewaysCaveNEW</td><td>Cave</td></tr>
-		<tr><td>SidewaysCaveNew02</td><td>Cave</td></tr>
-		<tr><td>Silorn</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Silorn02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Silorn03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>SilverToothCave</td><td>Cave</td></tr>
-		<tr><td>SilverToothCave02</td><td>Cave</td></tr>
-		<tr><td>SinkholeCave</td><td>Cave</td></tr>
-		<tr><td>SinkholeCave02</td><td>Cave</td></tr>
-		<tr><td>SkingradAmbroiseCannesHouse</td><td>House</td></tr>
-		<tr><td>SkingradBernadettePenelesHouse</td><td>House</td></tr>
-		<tr><td>SkingradCastleWineCellar</td><td>Castle</td></tr>
-		<tr><td>SkingradChapelHall</td><td>Temple</td></tr>
-		<tr><td>SkingradChapelofJulianos</td><td>Temple</td></tr>
-		<tr><td>SkingradChapelUndercroft</td><td>Temple</td></tr>
-		<tr><td>SkingradGlarthirsBasement</td><td>House</td></tr>
-		<tr><td>SkingradGratefulPassStables</td><td>Shop</td></tr>
-		<tr><td>SkingradHouseForSaleBasement</td><td>House</td></tr>
-		<tr><td>SkingradLazareMilvansBasement</td><td>House</td></tr>
-		<tr><td>SkingradMagesGuildBasement</td><td>Guild</td></tr>
-		<tr><td>SkingradRemanBrodersHouse</td><td>House</td></tr>
-		<tr><td>SkingradSalmoTheBakersBasement</td><td>House</td></tr>
-		<tr><td>SkingradShameersHouse</td><td>House</td></tr>
-		<tr><td>SkingradSummitmistManorBasement</td><td>House</td></tr>
-		<tr><td>SkingradSurilieBrothersBasement</td><td>House</td></tr>
-		<tr><td>SkingradTamikasBasement</td><td>House</td></tr>
-		<tr><td>SkingradTamikasHouse</td><td>House</td></tr>
-		<tr><td>SkingradToutiusSextiusBasement</td><td>House</td></tr>
-		<tr><td>SkingradTownGuardHouse</td><td>House</td></tr>
-		<tr><td>SkingradUndenaOrethisHouse</td><td>House</td></tr>
-		<tr><td>SkingradUurasTheShepherdsHouse</td><td>House</td></tr>
-		<tr><td>SmokeHoleCave</td><td>Cave</td></tr>
-		<tr><td>SmokeHoleCave02</td><td>Cave</td></tr>
-		<tr><td>SmokeHoleCave03</td><td>Cave</td></tr>
-		<tr><td>SquanderedMine</td><td>Mines</td></tr>
-		<tr><td>SquanderedMine02</td><td>Mines</td></tr>
-		<tr><td>SquanderedMine03</td><td>Mines</td></tr>
-		<tr><td>SwampyCave</td><td>Cave</td></tr>
-		<tr><td>SwampyCave02</td><td>Cave</td></tr>
-		<tr><td>Talwinque</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Talwinque02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Talwinque03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Telepe</td><td>Ayleid Ruins</td></tr>
-		<tr><td>TempleMothCatacombs03</td><td>Cave</td></tr>
-		<tr><td>TempleMothCatacombs04</td><td>Cave</td></tr>
-		<tr><td>TempleOfTheAncestorMothCrypt</td><td>Cave</td></tr>
-		<tr><td>TempleOfTheAncestorMothFarm</td><td>House</td></tr>
-		<tr><td>TempleOfTheAncestorMothMonastery</td><td>Temple</td></tr>
-		<tr><td>TheBeastsMaw</td><td>Cave</td></tr>
-		<tr><td>TheBeastsMaw02</td><td>Cave</td></tr>
-		<tr><td>TheDrunkenDragonInn</td><td>Inn</td></tr>
-		<tr><td>TidewaterCave</td><td>Cave</td></tr>
-		<tr><td>TimberscarHollow</td><td>Cave</td></tr>
-		<tr><td>ToadstoolHollow</td><td>Cave</td></tr>
-		<tr><td>ToadstoolHollow02</td><td>Cave</td></tr>
-		<tr><td>ToadstoolHollow03</td><td>Cave</td></tr>
-		<tr><td>Trumbe</td><td>Ayleid Ruins</td></tr>
-		<tr><td>UnderpallCave</td><td>Cave</td></tr>
-		<tr><td>UnderpallCave05</td><td>Cave</td></tr>
-		<tr><td>UndertowCavern</td><td>Cave</td></tr>
-		<tr><td>UndertowCavern02</td><td>Cave</td></tr>
-		<tr><td>UnmarkedCave01</td><td>Cave</td></tr>
-		<tr><td>UnmarkedCave01b</td><td>Cave</td></tr>
-		<tr><td>UnmarkedCave01c</td><td>Cave</td></tr>
-		<tr><td>Vahtacen</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Vahtacen02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Varondo</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Varondo02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Varondo03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Veyond</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Veyond02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Veyond03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Veyond04</td><td>Ayleid Ruins</td></tr>
-		<tr><td>VeyondCave</td><td>Cave</td></tr>
-		<tr><td>VeyondCave02</td><td>Cave</td></tr>
-		<tr><td>VeyondCave03</td><td>Cave</td></tr>
-		<tr><td>VeyondCave04</td><td>Cave</td></tr>
-		<tr><td>Vilverin</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Vilverin02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Vilverin03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Vilverin04</td><td>Ayleid Ruins</td></tr>
-		<tr><td>WatersEdgeBieneAmelionsHouse</td><td>House</td></tr>
-		<tr><td>WatersEdgeEduardRetienesHouse</td><td>House</td></tr>
-		<tr><td>WatersEdgeMarieAlouettesHouse</td><td>House</td></tr>
-		<tr><td>WawnetInnTavern</td><td>Inn</td></tr>
-		<tr><td>WeatherleahInterior</td><td>House</td></tr>
-		<tr><td>Welke</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Welke02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Welke03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>WellspringCave</td><td>Cave</td></tr>
-		<tr><td>Wendelbek</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Wendelbek02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Wendelbek03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Wendelbek04</td><td>Ayleid Ruins</td></tr>
-		<tr><td>WenderbekCave</td><td>Cave</td></tr>
-		<tr><td>Wendir</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Wendir02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Wenyandawik</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Wenyandawik02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>Weye</td><td>House</td></tr>
-		<tr><td>WeynonPrioryChapel</td><td>Temple</td></tr>
-		<tr><td>WeynonPrioryHouse</td><td>House</td></tr>
-		<tr><td>WeynonPrioryLodge</td><td>House</td></tr>
-		<tr><td>WhiteStallionLodgeInterior</td><td>House</td></tr>
-		<tr><td>WhitmondFarm</td><td>House</td></tr>
-		<tr><td>WindCave</td><td>Cave</td></tr>
-		<tr><td>WindCave02</td><td>Cave</td></tr>
-		<tr><td>WindCave03</td><td>Cave</td></tr>
-		<tr><td>XPBrellach05</td><td>Ayleid Ruins</td></tr>
-		<tr><td>XPXeddefen01</td><td>Ayleid Ruins</td></tr>
-		<tr><td>XPXeddefen02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>XPXeddefen03</td><td>Ayleid Ruins</td></tr>
-		<tr><td>XPXeddefen04</td><td>Ayleid Ruins</td></tr>
-		<tr><td>XPXeddefen05</td><td>Ayleid Ruins</td></tr>
-		<tr><td>XPXedilian01</td><td>Ayleid Ruins</td></tr>
-		<tr><td>XPXedilian02</td><td>Ayleid Ruins</td></tr>
-		<tr><td>YellowTickCave</td><td>Cave</td></tr>
-		<tr><td>YellowTickCave02</td><td>Cave</td></tr>
-    </tbody>
-  </table>
-</section>
-
+</tbody></table><div class="pagination-controls">Show<select class="items-per-page"><option>10</option><option>50</option><option>100</option><option>200</option><option value="all">ALL</option></select>entries<button class="prev-page">&lt; Prev</button><span class="page-info">Page 1</span><button class="next-page">Next &gt;</button></div></section>
 
 <script src="https://unpkg.com/tablesort@5.2.1/dist/tablesort.min.js"></script>
 <script>
@@ -8227,6 +7603,82 @@
       setTimeout(() => td.classList.remove('copied'), 600);
     });
   }
+  function showToast(message = "Copied!") {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 1200);
+  }
+  
+  document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll("section").forEach(function(section) {
+		const table = section.querySelector("table");
+		if (!table) return;
+
+		const tbody = table.querySelector("tbody");
+		if (!tbody) return;
+
+		const rows = Array.from(tbody.rows);
+		const pagination = section.querySelector(".pagination-controls");
+		const perPageSelect = pagination.querySelector(".items-per-page");
+		const prevBtn = pagination.querySelector(".prev-page");
+		const nextBtn = pagination.querySelector(".next-page");
+		const pageInfo = pagination.querySelector(".page-info");
+		let currentPage = 1;
+		let perPage = parseInt(perPageSelect.value) || 10;
+
+		function getTotalPages() {
+		  return perPage === "all" ? 1 : Math.ceil(rows.length / perPage);
+		}
+
+		function showPage(page) {
+		  if (perPageSelect.value === "all") {
+			rows.forEach(row => row.style.display = "");
+			pageInfo.textContent = "All items";
+			prevBtn.disabled = true;
+			nextBtn.disabled = true;
+			return;
+		  }
+
+		  perPage = parseInt(perPageSelect.value);
+		  const totalPages = getTotalPages();
+		  currentPage = Math.max(1, Math.min(page, totalPages));
+
+		  const start = (currentPage - 1) * perPage;
+		  const end = start + perPage;
+
+		  rows.forEach((row, idx) => {
+			row.style.display = (idx >= start && idx < end) ? "" : "none";
+		  });
+
+		  pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+		  prevBtn.disabled = currentPage === 1;
+		  nextBtn.disabled = currentPage === totalPages;
+		}
+
+		perPageSelect.addEventListener("change", function() {
+		  currentPage = 1;
+		  showPage(currentPage);
+		});
+
+		prevBtn.addEventListener("click", function() {
+		  if (currentPage > 1) {
+			showPage(--currentPage);
+		  }
+		});
+
+		nextBtn.addEventListener("click", function() {
+		  if (currentPage < getTotalPages()) {
+			showPage(++currentPage);
+		  }
+		});
+
+		// Initial pagination
+		showPage(currentPage);
+		});
+	});
 </script>
 </body>
 </html>
