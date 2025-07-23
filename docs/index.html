@@ -206,10 +206,10 @@ ConsoleKeys=</pre>
 
 <section><h2>Vital Item IDs</h2>
 <table>
-<thead><tr><th>Item</th><th>Command</th></tr></thead>
-<tbody><tr><td>Gold – F</td><td>player.additem F 10000</td></tr>
-<tr><td>Lockpick – A</td><td>player.additem A 10000</td></tr>
-<tr><td>Repair Hammer – C</td><td>player.additem C 10000</td></tr>
+<thead><tr><th>Item</th><th>Item ID</th><th>Command</th></tr></thead>
+<tbody><tr><td>Gold</td><td>F</td><td>player.additem F 10000</td></tr>
+<tr><td>Lockpick</td><td>A</td><td>player.additem A 10000</td></tr>
+<tr><td>Repair Hammer</td><td>C</td><td>player.additem C 10000</td></tr>
 </tbody></table>
 </section>
 
@@ -7628,7 +7628,7 @@ ConsoleKeys=</pre>
 	  // Expand logic: Also allow copying of the "Command" column in "Vital Item IDs" table
 	  let isCommandTable =
 		/(console commands|toggle commands|target commands|quest commands|vital item ids)/i.test(sectionTitle) &&
-		colName === 'command';
+		colName === 'command' || colName === 'item id';
 
 	  // For tables like Armor IDs, also match Copy Paste Cheat
 	  let isIDorCheatColumn =
