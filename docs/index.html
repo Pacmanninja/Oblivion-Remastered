@@ -236,372 +236,367 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script>
-    const ENTRIES_MENU = [10, 25, 50, 100, 250, 500, 1000, "All"];
-    const sectionText = {
-      "How to Use Console Commands": `
-        <strong>How to Use Console Commands</strong><br>
-        To use console commands in <b>Oblivion Remastered</b>, press the <kbd>~</kbd> key (tilde) on your keyboard while in-game. This will open the console command panel, where you can type or paste commands.
-        <br><br>
-        <b>If your keyboard does not have a <kbd>~</kbd> key or it doesn't work, you can set up an alternative key:</b><br>
-        Navigate to:
-        <code>C:\\Users\\Your Username\\Documents\\My Games\\Oblivion Remastered\\Saved\\Config\\Windows</code>, open <code>Input.ini</code> with a text editor.<br>
-        Paste the following section or find the existing one:<br>
-        <pre style="margin-top:6px;margin-bottom:6px;">[/script/engine.inputsettings]
+const ENTRIES_MENU = [10, 25, 50, 100, 250, 500, 1000, "All"];
+const sectionText = {
+  "How to Use Console Commands": `
+    <strong>How to Use Console Commands</strong><br>
+    To use console commands in <b>Oblivion Remastered</b>, press the <kbd>~</kbd> key (tilde) on your keyboard while in-game. This will open the console command panel, where you can type or paste commands.
+    <br><br>
+    <b>If your keyboard does not have a <kbd>~</kbd> key or it doesn't work, you can set up an alternative key:</b><br>
+    Navigate to:
+    <code>C:\\Users\\Your Username\\Documents\\My Games\\Oblivion Remastered\\Saved\\Config\\Windows</code>, open <code>Input.ini</code> with a text editor.<br>
+    Paste the following section or find the existing one:<br>
+    <pre style="margin-top:6px;margin-bottom:6px;">[/script/engine.inputsettings]
 ConsoleKeys=</pre>
-        After <b>=</b> type the key you want to use to open the command console.<br>
-        <b>Note:</b> Using <i>any</i> console command will <b>disable achievements</b> for that save file.<br>
-        You can restore achievements with a mod such as <a href="https://www.nexusmods.com/oblivionremastered/mods/145" target="_blank">this one</a>.<br>
-        <ul style="margin-top:8px;">
-          <li>Commands are <b>NOT</b> case-sensitive.</li>
-          <li>Some commands accept parameters (often shown in brackets). When entering a command, omit the brackets. For example, input <code>setlevel 10</code> not <code>setlevel [10]</code>.</li>
-          <li>Console commands are only available on Windows PC.</li>
-        </ul>
-      `,
-      "Console Commands": `These are the main commands you can use in the console for character control and resource manipulation. Some require parameters, such as an <b>ID</b> or amount.`,
-      "All Toggle Commands": `These are commands that you toggle on and off. Using one of these commands twice will usually just revert things back to normal.`,
-      "Target Commands": `Cheats used with a target mentioned at the start of the command (example: <code>player.additem f 100</code> gives gold to the player; replacing <code>player</code> with an NPCID targets them).
-        <br><b>Tip:</b> You can select NPCs/objects by clicking on them in-game with the console open.`,
-      "Quest Commands": `Commands to help fix quest bugs, skip stages, or reveal quest IDs and stages. Use with care, as incorrect usage may affect game stability.`,
-      "Armor IDs": `<b>Armor items:</b> Use the ID in console commands like <code>player.additem &lt;ID&gt; 1</code>. Some items have multiple variants.`,
-      "Location IDs": `Teleport to locations by name with <code>coc &lt;LocationID&gt;</code>.`,
-    };
-    function slug(str) {
-      return str.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/--+/g, '-').replace(/^-|-$/g, '');
+    After <b>=</b> type the key you want to use to open the command console.<br>
+    <b>Note:</b> Using <i>any</i> console command will <b>disable achievements</b> for that save file.<br>
+    You can restore achievements with a mod such as <a href="https://www.nexusmods.com/oblivionremastered/mods/145" target="_blank">this one</a>.<br>
+    <ul style="margin-top:8px;">
+      <li>Commands are <b>NOT</b> case-sensitive.</li>
+      <li>Some commands accept parameters (often shown in brackets). When entering a command, omit the brackets. For example, input <code>setlevel 10</code> not <code>setlevel [10]</code>.</li>
+      <li>Console commands are only available on Windows PC.</li>
+    </ul>
+  `,
+  "Console Commands": `These are the main commands you can use in the console for character control and resource manipulation. Some require parameters, such as an <b>ID</b> or amount.`,
+  "All Toggle Commands": `These are commands that you toggle on and off. Using one of these commands twice will usually just revert things back to normal.`,
+  "Target Commands": `Cheats used with a target mentioned at the start of the command (example: <code>player.additem f 100</code> gives gold to the player; replacing <code>player</code> with an NPCID targets them).
+    <br><b>Tip:</b> You can select NPCs/objects by clicking on them in-game with the console open.`,
+  "Quest Commands": `Commands to help fix quest bugs, skip stages, or reveal quest IDs and stages. Use with care, as incorrect usage may affect game stability.`,
+  "Armor IDs": `<b>Armor items:</b> Use the ID in console commands like <code>player.additem &lt;ID&gt; 1</code>. Some items have multiple variants.`,
+  "Location IDs": `Teleport to locations by name with <code>coc &lt;LocationID&gt;</code>.`,
+};
+function slug(str) {
+  return str.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/--+/g, '-').replace(/^-|-$/g, '');
+}
+function isCopyCol(h) {
+  h = (h||"").toLowerCase().trim();
+  return h === "example" || h === "command" || h.endsWith("id") ||
+    h === "copy paste cheat" || h.includes("id") || h.includes("copy paste cheat");
+}
+// --- RENDER SIDEBAR ---
+function renderSidebar(sectionList) {
+  const nav = document.getElementById("sidebar-nav");
+  nav.innerHTML = "";
+  sectionList.forEach(section => {
+    const s = document.createElement('li');
+    const l = document.createElement('a');
+    l.href = '#' + slug(section.display);
+    l.innerText = section.display;
+    s.appendChild(l);
+    nav.appendChild(s);
+  });
+}
+
+// ---- MAKE TABLE INTERACTIVE (WITH PAGINATION, FILTER, SORT) ----
+function makeTableInteractive(block, rows, headers, sectionName) {
+  const table = block.querySelector("table");
+  const tbody = table.tBodies[0];
+  const searchbox = block.querySelector(".searchbox");
+  const lengthSelect = block.querySelector(".length-select");
+
+  // --- NEW: Type Filter (shared for Location IDs and Weapons ID) ---
+  let typeFilterSel = block._typeFilterSel || null;
+  let typeFilterIdx = block._typeFilterIdx ?? -1;
+
+  // --------- SORT LOGIC ----------
+  let sortColumn = null, sortAsc = true;
+  function sortRows(rowsArr) {
+    if (sortColumn === null) return rowsArr;
+    const idx = headers.indexOf(sortColumn);
+    if (idx < 0) return rowsArr;
+    return rowsArr.slice().sort((a, b) => {
+      let x = (a[idx] ?? "").toString().toLowerCase();
+      let y = (b[idx] ?? "").toString().toLowerCase();
+      let nx = Number(x), ny = Number(y);
+      if (!isNaN(nx) && !isNaN(ny)) { x = nx; y = ny; }
+      if (x < y) return sortAsc ? -1 : 1;
+      if (x > y) return sortAsc ? 1 : -1;
+      return 0;
+    });
+  }
+
+  // -------- PAGINATION STATE ---------
+  let allRowsData = rows.slice(1).map(row => row.slice());
+  let pageLen = parseInt(lengthSelect.value, 10) || allRowsData.length;
+  let page = 0;
+
+  function getRowsFiltered() {
+    let out = allRowsData.filter(row => {
+      let s = searchbox.value.trim().toLowerCase();
+      if (s.length > 0 && row.join(" ").toLowerCase().indexOf(s) === -1) return false;
+      // Filter by Type column dropdown if present
+      if (typeFilterSel && typeFilterIdx >= 0) {
+        let v = typeFilterSel.value;
+        if (v && row[typeFilterIdx] != v) return false;
+      }
+      if (row.every(x => !x)) return false;
+      return true;
+    });
+    return out;
+  }
+
+  function renderPage() {
+    let viewportRows = getRowsFiltered();
+    if (sortColumn !== null) viewportRows = sortRows(viewportRows);
+    if (page*pageLen >= viewportRows.length) page = 0;
+    let start = page * pageLen,
+        end = pageLen === 0 ? viewportRows.length : Math.min(start+pageLen, viewportRows.length),
+        rowsNow = viewportRows.slice(start, end);
+    tbody.innerHTML = "";
+    for (let i = 0; i < rowsNow.length; ++i)
+      tbody.appendChild(rowToTr(rowsNow[i], headers.length));
+    // --- SORT HEADERS ICON ---
+    let ths = table.querySelectorAll('thead th');
+    ths.forEach(th=>{
+      th.classList.remove('sorted');
+      let icon = th.querySelector('.sort-icon');
+      if (!icon) {
+        icon = document.createElement('span'); icon.className = "sort-icon";
+        th.appendChild(icon);
+      }
+      icon.textContent = '';
+      if (sortColumn && th.textContent.replace(/[\u25B2\u25BC]/g,'').trim() === sortColumn) {
+        th.classList.add('sorted');
+        icon.textContent = sortAsc ? '▲' : '▼';
+      }
+    });
+    // --- PAGINATION CONTROLS ---
+    block.querySelector('.table-footer').innerHTML =
+      (viewportRows.length === 0 ? 
+        "<span>No records found.</span>" :
+        `<button class="pag-btn prev-page" ${page===0?'disabled':''}>Previous</button>
+         <span>Showing ${start+1}-${end} of ${viewportRows.length}</span>
+         <button class="pag-btn next-page" ${end>=viewportRows.length?'disabled':''}>Next</button>`);
+    // --- COPY ---
+    hookCopyCols(table, headers);
+  }
+  function rowToTr(row, ncols) {
+    let tr = document.createElement("tr");
+    for (let i=0;i<ncols;++i) {
+      let td = document.createElement("td");
+      td.textContent = (row[i] === undefined ? "":row[i]);
+      tr.appendChild(td);
     }
-    function isCopyCol(h) {
-      h = (h||"").toLowerCase().trim();
-      return h === "example" || h === "command" || h.endsWith("id") ||
-        h === "copy paste cheat" || h.includes("id") || h.includes("copy paste cheat");
-    }
-    // --- RENDER SIDEBAR ---
-    function renderSidebar(sectionList) {
-      const nav = document.getElementById("sidebar-nav");
-      nav.innerHTML = "";
-      sectionList.forEach(section => {
-        const s = document.createElement('li');
-        const l = document.createElement('a');
-        l.href = '#' + slug(section.display);
-        l.innerText = section.display;
-        s.appendChild(l);
-        nav.appendChild(s);
-      });
-    }
-
-    // ---- MAKE TABLE INTERACTIVE (WITH PAGINATION, FILTER, SORT) ----
-    function makeTableInteractive(block, rows, headers, sectionName) {
-      const table = block.querySelector("table");
-      const tbody = table.tBodies[0];
-      const searchbox = block.querySelector(".searchbox");
-      const lengthSelect = block.querySelector(".length-select");
-
-      // --------- ADDED: REGION/TYPE FILTER LOGIC FOR ONLY LOCATION IDs TABLE -----------
-      let regionTypeIdx = -1, regionTypeFilterSel, regionTypeFilterGroup;
-      let isLocationIDs = /location ?ids?/i.test(sectionName);
-      if (isLocationIDs) {
-        regionTypeIdx = headers.findIndex(h => /(region|type)/i.test(h));
-        if (regionTypeIdx >= 0) {
-          // Filter container group
-          regionTypeFilterGroup = document.createElement('div');
-          regionTypeFilterGroup.className = "region-type-filter-group";
-          // Only label for Region/Type
-          let label = document.createElement('label');
-          label.innerHTML = "<strong>Filter by Region/Type:</strong>";
-          regionTypeFilterGroup.appendChild(label);
-          // Region/Type dropdown
-          regionTypeFilterSel = document.createElement('select');
-          regionTypeFilterSel.className = "col-filter-select";
-          let opt = document.createElement('option');
-          opt.value = ""; opt.textContent = "All ▼"; regionTypeFilterSel.appendChild(opt);
-          let vals = Array.from(new Set(rows.slice(1).map(row => row[regionTypeIdx]).filter(v=>v!==undefined&&v!=="")));
-          vals = vals.sort((a,b)=>(""+a).localeCompare(""+b));
-          vals.forEach(v => {
-            let o = document.createElement('option');
-            o.value = v; o.textContent = v;
-            regionTypeFilterSel.appendChild(o);
-          });
-          regionTypeFilterGroup.appendChild(regionTypeFilterSel);
-        }
-      }
-
-      // --------- ADDED: SORT LOGIC ----------
-      let sortColumn = null, sortAsc = true;
-      function sortRows(rowsArr) {
-        if (sortColumn === null) return rowsArr;
-        const idx = headers.indexOf(sortColumn);
-        if (idx < 0) return rowsArr;
-        return rowsArr.slice().sort((a, b) => {
-          let x = (a[idx] ?? "").toString().toLowerCase();
-          let y = (b[idx] ?? "").toString().toLowerCase();
-          let nx = Number(x), ny = Number(y);
-          if (!isNaN(nx) && !isNaN(ny)) { x = nx; y = ny; }
-          if (x < y) return sortAsc ? -1 : 1;
-          if (x > y) return sortAsc ? 1 : -1;
-          return 0;
-        });
-      }
-
-      // -------- PAGINATION STATE ---------
-      let allRowsData = rows.slice(1).map(row => row.slice());
-      let pageLen = parseInt(lengthSelect.value, 10) || allRowsData.length;
-      let page = 0;
-
-      function getRowsFiltered() {
-        let out = allRowsData.filter(row => {
-          let s = searchbox.value.trim().toLowerCase();
-          if (s.length > 0 && row.join(" ").toLowerCase().indexOf(s) === -1) return false;
-
-          // For Location IDs: only filter by Region/Type
-          if (isLocationIDs && regionTypeFilterSel) {
-            let v = regionTypeFilterSel.value;
-            if (v && row[regionTypeIdx] != v) return false;
+    return tr;
+  }
+  function hookCopyCols(table, headers) {
+    const copyCols = [];
+    headers.forEach((h,i) => { if (isCopyCol(h)) copyCols.push(i); });
+    table.querySelectorAll('tbody tr').forEach(tr => {
+      tr.querySelectorAll('td').forEach((td, i) => {
+        if (!copyCols.includes(i)) return;
+        td.ondblclick = e => {
+          const val = td.textContent.trim();
+          if (val) {
+            if (navigator.clipboard) navigator.clipboard.writeText(val);
+            else { let ta=document.createElement('textarea');ta.value=val;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); }
+            td.classList.add('copy-highlight');
+            setTimeout(()=>td.classList.remove('copy-highlight'), 420);
           }
-          if (row.every(x => !x)) return false;
-          return true;
-        });
-        return out;
-      }
-
-      function renderPage() {
-        let viewportRows = getRowsFiltered();
-        if (sortColumn !== null) viewportRows = sortRows(viewportRows);
-        if (page*pageLen >= viewportRows.length) page = 0;
-        let start = page * pageLen,
-            end = pageLen === 0 ? viewportRows.length : Math.min(start+pageLen, viewportRows.length),
-            rowsNow = viewportRows.slice(start, end);
-        tbody.innerHTML = "";
-        for (let i = 0; i < rowsNow.length; ++i)
-          tbody.appendChild(rowToTr(rowsNow[i], headers.length));
-        // --- SORT HEADERS ICON ---
-        let ths = table.querySelectorAll('thead th');
-        ths.forEach(th=>{
-          th.classList.remove('sorted');
-          let icon = th.querySelector('.sort-icon');
-          if (!icon) {
-            icon = document.createElement('span'); icon.className = "sort-icon";
-            th.appendChild(icon);
-          }
-          icon.textContent = '';
-          if (sortColumn && th.textContent.replace(/[\u25B2\u25BC]/g,'').trim() === sortColumn) {
-            th.classList.add('sorted');
-            icon.textContent = sortAsc ? '▲' : '▼';
-          }
-        });
-        // --- PAGINATION CONTROLS ---
-        block.querySelector('.table-footer').innerHTML =
-          (viewportRows.length === 0 ? 
-            "<span>No records found.</span>" :
-            `<button class="pag-btn prev-page" ${page===0?'disabled':''}>Previous</button>
-             <span>Showing ${start+1}-${end} of ${viewportRows.length}</span>
-             <button class="pag-btn next-page" ${end>=viewportRows.length?'disabled':''}>Next</button>`);
-        // --- COPY ---
-        hookCopyCols(table, headers);
-      }
-      function rowToTr(row, ncols) {
-        let tr = document.createElement("tr");
-        for (let i=0;i<ncols;++i) {
-          let td = document.createElement("td");
-          td.textContent = (row[i] === undefined ? "":row[i]);
-          tr.appendChild(td);
-        }
-        return tr;
-      }
-      function hookCopyCols(table, headers) {
-        const copyCols = [];
-        headers.forEach((h,i) => { if (isCopyCol(h)) copyCols.push(i); });
-        table.querySelectorAll('tbody tr').forEach(tr => {
-          tr.querySelectorAll('td').forEach((td, i) => {
-            if (!copyCols.includes(i)) return;
-            td.ondblclick = e => {
-              const val = td.textContent.trim();
-              if (val) {
-                if (navigator.clipboard) navigator.clipboard.writeText(val);
-                else { let ta=document.createElement('textarea');ta.value=val;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); }
-                td.classList.add('copy-highlight');
-                setTimeout(()=>td.classList.remove('copy-highlight'), 420);
-              }
-            };
-          });
-        });
-      }
-      searchbox.oninput = function() { page = 0; renderPage(); };
-      lengthSelect.onchange = function() {
-        let v = lengthSelect.value;
-        pageLen = (v === "All" || v === "") ? 0 : parseInt(v, 10);
-        page = 0;
-        renderPage();
-      };
-
-      if (isLocationIDs && regionTypeFilterSel) {
-        regionTypeFilterSel.onchange = function(){ page = 0; renderPage(); };
-      }
-
-      block.querySelector('.table-footer').onclick = function(e){
-        if (e.target.classList.contains("next-page") && (page+1)*pageLen < getRowsFiltered().length) { page++; renderPage();}
-        if (e.target.classList.contains("prev-page") && page > 0) { page--; renderPage();}
-      }
-      // --- SORT ON HEADER CLICK
-      let ths = table.querySelectorAll('thead th');
-      ths.forEach((th, idx) => {
-        th.onclick = ()=>{
-          let col = th.textContent.replace(/[\u25B2\u25BC]/g,'').trim();
-          if (sortColumn === col) sortAsc = !sortAsc;
-          else {sortColumn=col; sortAsc=true;}
-          renderPage();
         };
       });
-
+    });
+  }
+  searchbox.oninput = function() { page = 0; renderPage(); };
+  lengthSelect.onchange = function() {
+    let v = lengthSelect.value;
+    pageLen = (v === "All" || v === "") ? 0 : parseInt(v, 10);
+    page = 0;
+    renderPage();
+  };
+  if (typeFilterSel) {
+    typeFilterSel.onchange = function(){ page = 0; renderPage(); };
+  }
+  block.querySelector('.table-footer').onclick = function(e){
+    if (e.target.classList.contains("next-page") && (page+1)*pageLen < getRowsFiltered().length) { page++; renderPage();}
+    if (e.target.classList.contains("prev-page") && page > 0) { page--; renderPage();}
+  }
+  // --- SORT ON HEADER CLICK
+  let ths = table.querySelectorAll('thead th');
+  ths.forEach((th, idx) => {
+    th.onclick = ()=>{
+      let col = th.textContent.replace(/[\u25B2\u25BC]/g,'').trim();
+      if (sortColumn === col) sortAsc = !sortAsc;
+      else {sortColumn=col; sortAsc=true;}
       renderPage();
-    }
+    };
+  });
 
-    async function main() {
-      let buf;
-      try {
-        buf = await fetch("table.xlsx").then(r=>r.arrayBuffer());
-      } catch(e) {
-        document.getElementById("tables-root").innerHTML = "<div style='color:#B22;font-weight:bold'>Could not find <code>table.xlsx</code>. Place it next to this HTML and open via a local web server.</div>";
-        document.getElementById("sidebar-nav").innerHTML = "";
-        return;
-      }
-      const wb = XLSX.read(buf, {type:"array"});
-      const sheets = wb.SheetNames.map(s => ({
-        display: s, anchor: slug(s),
-        data: XLSX.utils.sheet_to_json(wb.Sheets[s], {header:1,blankrows:false})
-      })).filter(sheet => sheet.data && sheet.data.length > 1);
+  renderPage();
+}
 
-      const sectionList = [
-        { display: "How to Use Console Commands", anchor: slug("How to Use Console Commands"), isIntro: true }
-      ].concat(sheets);
+async function main() {
+  let buf;
+  try {
+    buf = await fetch("table.xlsx").then(r=>r.arrayBuffer());
+  } catch(e) {
+    document.getElementById("tables-root").innerHTML = "<div style='color:#B22;font-weight:bold'>Could not find <code>table.xlsx</code>. Place it next to this HTML and open via a local web server.</div>";
+    document.getElementById("sidebar-nav").innerHTML = "";
+    return;
+  }
+  const wb = XLSX.read(buf, {type:"array"});
+  const sheets = wb.SheetNames.map(s => ({
+    display: s, anchor: slug(s),
+    data: XLSX.utils.sheet_to_json(wb.Sheets[s], {header:1,blankrows:false})
+  })).filter(sheet => sheet.data && sheet.data.length > 1);
 
-      renderSidebar(sectionList);
+  const sectionList = [
+    { display: "How to Use Console Commands", anchor: slug("How to Use Console Commands"), isIntro: true }
+  ].concat(sheets);
 
-      const root = document.getElementById("tables-root");
-      root.innerHTML = "";
+  renderSidebar(sectionList);
 
-      // "How to Use Console Commands" section
-      let introDiv = document.createElement("section");
-      introDiv.className = "table-section";
-      introDiv.id = slug("How to Use Console Commands");
-      let h2 = document.createElement("h2");
-      h2.textContent = "How to Use Console Commands";
-      introDiv.appendChild(h2);
+  const root = document.getElementById("tables-root");
+  root.innerHTML = "";
+
+  // "How to Use Console Commands" section
+  let introDiv = document.createElement("section");
+  introDiv.className = "table-section";
+  introDiv.id = slug("How to Use Console Commands");
+  let h2 = document.createElement("h2");
+  h2.textContent = "How to Use Console Commands";
+  introDiv.appendChild(h2);
+  let intro = document.createElement("div");
+  intro.className = "section-intro";
+  intro.innerHTML = sectionText["How to Use Console Commands"];
+  introDiv.appendChild(intro);
+  root.appendChild(introDiv);
+
+  // For all tables/sections from xlsx
+  sheets.forEach(sheet => {
+    let secDiv = document.createElement("section");
+    secDiv.className = "table-section";
+    secDiv.id = sheet.anchor;
+    let h2 = document.createElement("h2");
+    h2.textContent = sheet.display;
+    secDiv.appendChild(h2);
+
+    // Section intro if present
+    if (sectionText[sheet.display]) {
       let intro = document.createElement("div");
       intro.className = "section-intro";
-      intro.innerHTML = sectionText["How to Use Console Commands"];
-      introDiv.appendChild(intro);
-      root.appendChild(introDiv);
-
-      // For all tables/sections from xlsx
-      sheets.forEach(sheet => {
-        let secDiv = document.createElement("section");
-        secDiv.className = "table-section";
-        secDiv.id = sheet.anchor;
-        let h2 = document.createElement("h2");
-        h2.textContent = sheet.display;
-        secDiv.appendChild(h2);
-
-        // Section intro if present
-        if (sectionText[sheet.display]) {
-          let intro = document.createElement("div");
-          intro.className = "section-intro";
-          intro.innerHTML = sectionText[sheet.display];
-          secDiv.appendChild(intro);
-        }
-
-        // --- CONTROLS ---
-        let controls = document.createElement("div");
-        controls.className = "table-controls";
-        let search = document.createElement("input");
-        search.type = "text";
-        search.className = "searchbox";
-        search.placeholder = "Search table...";
-        controls.appendChild(search);
-        let lenSel = document.createElement("select");
-        lenSel.className = "length-select";
-        ENTRIES_MENU.forEach(n => {
-          let o = document.createElement("option");
-          o.value = n; o.textContent = n;
-          lenSel.appendChild(o);
-        });
-        lenSel.value = "10";
-        controls.appendChild(lenSel);
-
-        let headers = sheet.data[0].map(x=>""+x);
-        let lower = sheet.display.toLowerCase();
-        let isLocationIDs = (lower === "location ids" || lower.includes("location id"));
-        // --- New: Only for Location IDs
-        if (isLocationIDs) {
-          // Now create the Region/Type filter group and append it AFTER the items-per-page dropdown
-          let regionTypeIdx = headers.findIndex(h => /(region|type)/i.test(h));
-          if (regionTypeIdx >= 0) {
-            let regionTypeFilterGroup = document.createElement('div');
-            regionTypeFilterGroup.className = "region-type-filter-group";
-            let label = document.createElement('label');
-            label.innerHTML = "<strong>Filter by Region/Type:</strong>";
-            regionTypeFilterGroup.appendChild(label);
-            let regionTypeFilterSel = document.createElement('select');
-            regionTypeFilterSel.className = "col-filter-select";
-            let opt = document.createElement('option');
-            opt.value = ""; opt.textContent = "All ▼"; regionTypeFilterSel.appendChild(opt);
-            let vals = Array.from(new Set(sheet.data.slice(1).map(row => row[regionTypeIdx]).filter(v=>v!==undefined&&v!=="")));
-            vals = vals.sort((a,b)=>(""+a).localeCompare(""+b));
-            vals.forEach(v => {
-              let o = document.createElement('option');
-              o.value = v; o.textContent = v;
-              regionTypeFilterSel.appendChild(o);
-            });
-            regionTypeFilterGroup.appendChild(regionTypeFilterSel);
-            controls.appendChild(regionTypeFilterGroup); // Place after entries-per-page
-          }
-        }
-        secDiv.appendChild(controls);
-
-        // --- TABLE ---
-        let tableWrap = document.createElement("div");
-        tableWrap.className = "table-wrapper";
-        let table = document.createElement("table");
-        let thead = document.createElement("thead");
-        let tr = document.createElement("tr");
-        headers.forEach(h => {
-          let th = document.createElement("th");
-          th.textContent = h;
-          tr.appendChild(th);
-        });
-        thead.appendChild(tr);
-        table.appendChild(thead);
-        let tbody = document.createElement("tbody");
-        table.appendChild(tbody);
-        tableWrap.appendChild(table);
-        secDiv.appendChild(tableWrap);
-
-        // --- FOOTER ---
-        let footer = document.createElement("div");
-        footer.className = "table-footer";
-        secDiv.appendChild(footer);
-
-        root.appendChild(secDiv);
-        makeTableInteractive(secDiv, sheet.data, headers, sheet.display);
-      });
-
-      // Sidebar active highlight
-      function highlightSidebar() {
-        let fromTop = window.scrollY + 80;
-        let sections = sectionList.map(s => document.getElementById(slug(s.display)));
-        let navLinks = Array.from(document.querySelectorAll('.sidebar a'));
-        let current = sections.findIndex(sec => sec && sec.offsetTop <= fromTop && fromTop < (sec.offsetTop + sec.offsetHeight));
-        navLinks.forEach((l,i) => l.classList.toggle("active", i === current));
-      }
-      window.addEventListener("scroll", highlightSidebar);
-      document.querySelectorAll('.sidebar a').forEach(link=>{
-        link.onclick = function(e){
-          e.preventDefault();
-          let id = link.getAttribute('href').substring(1);
-          let sec = document.getElementById(id);
-          if (!sec) return;
-          scrollTo({top: sec.offsetTop-20,behavior:'smooth'});
-        };
-      });
+      intro.innerHTML = sectionText[sheet.display];
+      secDiv.appendChild(intro);
     }
-    window.addEventListener('DOMContentLoaded',main);
-  </script>
+
+    // --- CONTROLS ---
+    let controls = document.createElement("div");
+    controls.className = "table-controls";
+    let search = document.createElement("input");
+    search.type = "text";
+    search.className = "searchbox";
+    search.placeholder = "Search table...";
+    controls.appendChild(search);
+    let lenSel = document.createElement("select");
+    lenSel.className = "length-select";
+    ENTRIES_MENU.forEach(n => {
+      let o = document.createElement("option");
+      o.value = n; o.textContent = n;
+      lenSel.appendChild(o);
+    });
+    lenSel.value = "10";
+    controls.appendChild(lenSel);
+
+    let headers = sheet.data[0].map(x => "" + x);
+	let lower = sheet.display.toLowerCase();
+
+	// Make filter appear for both "location id" and "weapon id" sheets
+	let needsTypeFilter = /location id/i.test(lower) || /weapon id/i.test(lower);
+
+	// For Location IDs, the column is "Region/Type", for Weapon IDs it's "Type"
+	let typeColumnNames = [];
+	if (/location id/i.test(lower)) typeColumnNames = ["region/type"];
+	else if (/weapon id/i.test(lower)) typeColumnNames = ["type"];
+
+	// Try to find the first matching type column
+	let typeColIdx = -1;
+	let typeColNameForLog = "";
+	for (let cname of typeColumnNames) {
+	  let idx = headers.findIndex(h => h.trim().toLowerCase() === cname);
+	  if (idx >= 0) {
+		typeColIdx = idx;
+		typeColNameForLog = cname;
+		break;
+	  }
+	}
+
+	if (needsTypeFilter && typeColIdx >= 0) {
+	  let typeFilterGroup = document.createElement('div');
+	  typeFilterGroup.className = "region-type-filter-group";
+	  let label = document.createElement('label');
+	  label.innerHTML = "<strong>Filter by Type:</strong>";
+	  typeFilterGroup.appendChild(label);
+
+	  let typeFilterSel = document.createElement('select');
+	  typeFilterSel.className = "col-filter-select";
+	  let opt = document.createElement('option');
+	  opt.value = ""; opt.textContent = "All ▼";
+	  typeFilterSel.appendChild(opt);
+
+	  let vals = Array.from(new Set(sheet.data.slice(1).map(row => row[typeColIdx]).filter(v => v !== undefined && v !== "")));
+	  vals.sort((a, b) => ("" + a).localeCompare("" + b));
+	  vals.forEach(v => {
+		let o = document.createElement('option');
+		o.value = v; o.textContent = v;
+		typeFilterSel.appendChild(o);
+	  });
+	  typeFilterGroup.appendChild(typeFilterSel);
+	  controls.appendChild(typeFilterGroup);
+
+	  secDiv._typeFilterSel = typeFilterSel;
+	  secDiv._typeFilterIdx = typeColIdx;
+	}
+
+
+    secDiv.appendChild(controls);
+
+    // --- TABLE ---
+    let tableWrap = document.createElement("div");
+    tableWrap.className = "table-wrapper";
+    let table = document.createElement("table");
+    let thead = document.createElement("thead");
+    let tr = document.createElement("tr");
+    headers.forEach(h => {
+      let th = document.createElement("th");
+      th.textContent = h;
+      tr.appendChild(th);
+    });
+    thead.appendChild(tr);
+    table.appendChild(thead);
+    let tbody = document.createElement("tbody");
+    table.appendChild(tbody);
+    tableWrap.appendChild(table);
+    secDiv.appendChild(tableWrap);
+
+    // --- FOOTER ---
+    let footer = document.createElement("div");
+    footer.className = "table-footer";
+    secDiv.appendChild(footer);
+
+    root.appendChild(secDiv);
+    makeTableInteractive(secDiv, sheet.data, headers, sheet.display);
+  });
+
+  // Sidebar active highlight
+  function highlightSidebar() {
+    let fromTop = window.scrollY + 80;
+    let sections = sectionList.map(s => document.getElementById(slug(s.display)));
+    let navLinks = Array.from(document.querySelectorAll('.sidebar a'));
+    let current = sections.findIndex(sec => sec && sec.offsetTop <= fromTop && fromTop < (sec.offsetTop + sec.offsetHeight));
+    navLinks.forEach((l,i) => l.classList.toggle("active", i === current));
+  }
+  window.addEventListener("scroll", highlightSidebar);
+  document.querySelectorAll('.sidebar a').forEach(link=>{
+    link.onclick = function(e){
+      e.preventDefault();
+      let id = link.getAttribute('href').substring(1);
+      let sec = document.getElementById(id);
+      if (!sec) return;
+      scrollTo({top: sec.offsetTop-20,behavior:'smooth'});
+    };
+  });
+}
+window.addEventListener('DOMContentLoaded',main);
+</script>
 </body>
 </html>
