@@ -4,178 +4,219 @@
   <meta charset="UTF-8">
   <title>Oblivion Remastered Console Cheat Sheet & Database</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      background: #ede0ef;
-      color: #111;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      margin: 0; padding: 0;
-    }
-    #container {
-      margin-left: 255px!important; padding: 30px 30px 50px 30px;
-      min-height: 100vh;
-    }
-    h1 {
-      font-size: 1.8em;
-      margin: 0 0 18px 0;
-    }
-    .sidebar {
-      width: 220px;
-      background: #221A33;
-      position: fixed;
-      left: 0; top: 0; bottom: 0;
-      overflow-y: auto;
-      border-right: 1px solid #a282c3;
-      padding: 30px 15px 30px 20px;
-      z-index: 3000;
-    }
-    .sidebar h2 {
-      margin: 0 0 15px 0;
-      font-size: 1.18em;
-      letter-spacing: 0.05em;
-      color: #E1ADFF;
-      border-radius: 6px;
-      padding: 8px 12px 8px 10px;
-      text-align: left;
-    }
-    .sidebar ul {
-      list-style: none;
-      padding: 0; margin: 0;
-    }
-    .sidebar li {
-      margin: 0 0 8px 0;
-    }
-    .sidebar a {
-      color: #E1ADFF; text-decoration: none;
-      font-weight: 500;
-      border-radius: 4px;
-      padding: 3px 7px;
-      display: inline-block;
-      transition: color .13s, background .13s;
-    }
-    .sidebar a.active, .sidebar a:hover {
-      color: #fff;
-      background: #412261;
-    }
-    .section-intro {
-      margin: 10px 0 16px 1px;
-      color: #223;
-      font-size: 1.06em;
-      line-height: 1.65;
-      padding: 11px 20px 9px 16px;
-      border-radius: 4px;
-    }
-    .table-section {
-      padding-top: 42px;
-      margin-bottom: 28px;
-    }
-    .table-section h2 {
-      background: #412261;
-      color: #fff;
-      border-radius: 5px;
-      padding: 9px 18px;
-      margin: 0 0 10px 0;
-      font-size: 1.25em;
-      letter-spacing: 0.01rem;
-      border-bottom: 2px solid #a282c3;
-    }
-    .table-controls {
-      margin-bottom: 7px;
-      display: flex; gap: 18px; flex-wrap: wrap; align-items: center;
-    }
-    .searchbox, .length-select, .col-filter-select {
-      background: #fff;
-      border: 1px solid #a282c3;
-      border-radius: 4px;
-      font-size: 1em;
-    }
-    .searchbox, .col-filter-select {
-      padding: 3px 6px;
-    }
-    .length-select {
-      height: 2em;
-    }
-    .table-wrapper {
-      overflow-x: auto;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 1px 8px #60477e15;
-      padding: 0;
-    }
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin: 0;
-      background: #fff;
-    }
-    th, td {
-      border: 1px solid #dfcdf7;
-      padding: 6px 10px;
-      text-align: left;
-      min-width: 70px;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.18s;
-      white-space: pre-line;
-    }
-    th {
-      background: #8045a0;
-      color: #fff;
-      font-weight: bold;
-      position: relative;
-      z-index: 1;
-      border-bottom: 2px solid #412261;
-    }
-    th.sorted {
-      font-weight: bold;
-      background: #9a57ba;
-    }
-    td.copy-highlight, th.copy-highlight {
-      background: #fbefff !important;
-    }
-    tr:nth-child(even) td {
-      background: #f5edfa;
-    }
-    .table-footer {
-      font-size: .9em; color: #555;
-      padding: 3px 0 0 2px;
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      user-select: none;
-    }
-    .table-footer .pag-btn {
-      padding: 3px 12px;
-      border: 1px solid #a282c3;
-      border-radius: 3px;
-      background: #fff;
-      color: #532382;
-      cursor: pointer;
-      font-size: 1em;
-      margin: 0 3px;
-      transition: background .14s;
-      font-weight: 500;
-    }
-    .table-footer .pag-btn:disabled {
-      background: #dfcdf7;
-      color: #aaa;
-      cursor: not-allowed;
-    }
-    .sort-icon {
-      font-size: 0.93em;
-      margin-left: 4px;
-    }
-    .region-type-filter-group {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      margin-left: 18px;
-    }
-    @media(max-width: 650px) {
-      #container { padding:10px 5vw 30px 5vw; margin-left: 0; }
-      .sidebar { position: static; width: 100vw; border: none; padding: 14px 5vw 8px 5vw; }
-    }
-  </style>
+	<style>
+	  .attribution {
+	  margin: 0 0 26px 0;
+	  font-size: 1em;
+	  color: #c7b7de;
+	  border-left: 6px solid #8045a0;
+	  border-radius: 4px;
+	  padding: 9px 20px 7px 16px;
+	  background: #30233d;
+	  }
+	  body {
+		background: #1d1626;
+		color: #f2eafb;
+		font-family: 'Segoe UI', Arial, sans-serif;
+		margin: 0; padding: 0;
+	  }
+	  #container {
+		margin-left: 255px!important; padding: 30px 30px 50px 30px;
+		min-height: 100vh;
+	  }
+	  h1 {
+		font-size: 1.8em;
+		margin: 0 0 18px 0;
+	  }
+	  /* --- SIDEBAR --- */
+	  .sidebar {
+		width: 220px;
+		background: #221A33;
+		position: fixed;
+		left: 0; top: 0; bottom: 0;
+		overflow-y: auto;
+		border-right: 1px solid #a282c3;
+		padding: 30px 15px 30px 20px;
+		z-index: 3000;
+	  }
+	  .sidebar h2 {
+		margin: 0 0 15px 0;
+		font-size: 1.18em;
+		letter-spacing: 0.05em;
+		color: #E1ADFF;
+		border-radius: 6px;
+		padding: 8px 12px 8px 10px;
+		text-align: left;
+	  }
+	  .sidebar ul {
+		list-style: none;
+		padding: 0; margin: 0;
+	  }
+	  .sidebar li {
+		margin: 0 0 8px 0;
+	  }
+	  .sidebar a {
+		color: #E1ADFF; text-decoration: none;
+		font-weight: 500;
+		border-radius: 4px;
+		padding: 3px 7px;
+		display: inline-block;
+		transition: color .13s, background .13s;
+	  }
+	  .sidebar a.active, .sidebar a:hover {
+		color: #fff;
+		background: #412261;
+	  }
+
+	  /* --- ATTRIBUTION AND SECTION INTROS --- */
+	  .attribution {
+		background: #30233d;
+		color: #c7b7de;
+		border-left: 6px solid #8045a0;
+	  }
+	  .section-intro {
+		background: #261b36;
+		color: #ded1f7;
+		margin: 10px 0 16px 1px;
+		font-size: 1.06em;
+		line-height: 1.65;
+		padding: 11px 20px 9px 16px;
+		border-radius: 4px;
+	  }
+
+	  /* --- TABLE SECTION HEADERS --- */
+	  .table-section {
+		padding-top: 42px;
+		margin-bottom: 28px;
+	  }
+	  .table-section h2 {
+		background: #412261;
+		color: #fff;
+		border-radius: 5px;
+		padding: 9px 18px;
+		margin: 0 0 10px 0;
+		font-size: 1.25em;
+		letter-spacing: 0.01rem;
+		border-bottom: 2px solid #a282c3;
+	  }
+
+	  /* --- TABLE CONTROLS & FILTERS --- */
+	  .table-controls {
+		margin-bottom: 7px;
+		display: flex; gap: 18px; flex-wrap: wrap; align-items: center;
+	  }
+	  .searchbox, .length-select, .col-filter-select {
+		background: #232037;
+		border: 1px solid #453057;
+		color: #f1e5ff;
+		border-radius: 4px;
+		font-size: 1em;
+		box-shadow: none;
+		transition: border-color 0.18s, box-shadow 0.18s;
+	  }
+	  .searchbox:focus, .col-filter-select:focus, .length-select:focus {
+		border-color: #9c6bdd;
+		box-shadow: 0 0 0 1.5px #8b42d6;
+		outline: none;
+	  }
+	  .searchbox, .col-filter-select {
+		padding: 3px 6px;
+	  }
+	  .length-select {
+		height: 2em;
+	  }
+
+	  /* --- SPECIAL REGION-TYPE FILTER GROUP --- */
+	  .region-type-filter-group label, .region-type-filter-group select {
+		color: #f3eafd;
+	  }
+	  .region-type-filter-group {
+		display: flex;
+		align-items: center;
+		gap: 7px;
+		margin-left: 18px;
+	  }
+
+	  /* --- TABLE AND CELL STYLING --- */
+	  .table-wrapper, table {
+		background: #2d223d !important;
+	  }
+	  table {
+		border-collapse: collapse;
+		width: 100%;
+		margin: 0;
+		background: #2d223d;
+		color: #faf4ff;
+	  }
+	  th, td {
+		border: 1px solid #4b3262;
+		padding: 6px 10px;
+		text-align: left;
+		min-width: 70px;
+		cursor: pointer;
+		user-select: none;
+		transition: background 0.18s, color 0.18s;
+		white-space: pre-line;
+	  }
+	  th {
+		background: #412261;
+		color: #f7eaff;
+		font-weight: bold;
+		position: relative;
+		z-index: 1;
+		border-bottom: 2px solid #a282c3;
+	  }
+	  th.sorted {
+		background: #633074;
+	  }
+	  td.copy-highlight, th.copy-highlight {
+		background: #543168 !important;
+	  }
+	  tr:nth-child(even) td {
+		background: #261b36;
+	  }
+	  tr:hover td {
+		background: #37294a;
+	  }
+
+	  /* --- TABLE FOOTER PAGINATION --- */
+	  .table-footer {
+		font-size: .9em; color: #cfc2e7;
+		padding: 3px 0 0 2px;
+		display: flex;
+		gap: 16px;
+		align-items: center;
+		user-select: none;
+	  }
+	  .table-footer .pag-btn {
+		padding: 3px 12px;
+		border: 1px solid #633070;
+		border-radius: 3px;
+		background: #3b2c4c;
+		color: #d2bcf0;
+		cursor: pointer;
+		font-size: 1em;
+		margin: 0 3px;
+		transition: background .14s;
+		font-weight: 500;
+	  }
+	  .table-footer .pag-btn:disabled {
+		background: #3a2b4a;
+		color: #6a6070;
+		cursor: not-allowed;
+	  }
+	  .sort-icon {
+		font-size: 0.93em;
+		margin-left: 4px;
+		color: #e6bfff;
+	  }
+
+	  /* --- RESPONSIVE --- */
+	  @media(max-width: 650px) {
+		#container { padding:10px 5vw 30px 5vw; margin-left: 0; }
+		.sidebar { position: static; width: 100vw; border: none; padding: 14px 5vw 8px 5vw; }
+	  }
+	</style>
 </head>
 <body>
   <nav class="sidebar">
@@ -184,7 +225,7 @@
   </nav>
   <div id="container">
     <h1>Oblivion Remastered Command & Data Tables</h1>
-    <div class="attribution" style="margin:0 0 26px 0; font-size:1em; color:#412261; border-left:6px solid #8550b5; border-radius:4px; padding:9px 20px 7px 16px;">
+    <div class="attribution">
       <b>Original Work Done by 
       <a href="https://www.reddit.com/r/oblivion/comments/1k5y76v/oblivion_remastered_all_item_ids_list_console/" target="_blank">u/opreaadriann</a> 
       at 
