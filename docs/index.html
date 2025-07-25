@@ -6,223 +6,426 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<style>
 	  .attribution {
-	  margin: 0 0 26px 0;
-	  font-size: 1em;
-	  color: #c7b7de;
-	  border-left: 6px solid #8045a0;
-	  border-radius: 4px;
-	  padding: 9px 20px 7px 16px;
-	  background: #30233d;
+	    margin: 0 0 26px 0;
+	    font-size: 1em;
+	    color: #c7b7de;
+	    border-left: 6px solid #8045a0;
+	    border-radius: 4px;
+	    padding: 9px 20px 7px 16px;
+	    background: #30233d;
 	  }
 	  body {
-		background: #1d1626;
-		color: #f2eafb;
-		font-family: 'Segoe UI', Arial, sans-serif;
-		margin: 0; padding: 0;
+	    background: #1d1626;
+	    color: #f2eafb;
+	    font-family: 'Segoe UI', Arial, sans-serif;
+	    margin: 0; padding: 0;
+	    font-size: 17px;
 	  }
 	  #container {
-		margin-left: 255px!important; padding: 30px 30px 50px 30px;
-		min-height: 100vh;
+	    margin-left: 255px!important; 
+	    padding: 30px 30px 50px 30px;
+	    min-height: 100vh;
+	    box-sizing: border-box;
 	  }
 	  h1 {
-		font-size: 1.8em;
-		margin: 0 0 18px 0;
+	    font-size: 1.8em;
+	    margin: 0 0 18px 0;
+	    text-align: center;
+	    width: calc(100vw - 60px);
+	    max-width: 1000px;
+	    margin-left: auto;
+	    margin-right: auto;
+	    box-sizing: border-box;
+	    padding-left: 0;
+	    padding-right: 0;
 	  }
+
 	  /* --- SIDEBAR --- */
 	  .sidebar {
-		width: 220px;
-		background: #221A33;
-		position: fixed;
-		left: 0; top: 0; bottom: 0;
-		overflow-y: auto;
-		border-right: 1px solid #a282c3;
-		padding: 30px 15px 30px 20px;
-		z-index: 3000;
+	    max-height: 100vh;
+	    width: 220px;
+	    background: #221A33;
+	    position: fixed;
+	    left: 0; top: 0; bottom: 0;
+	    overflow-y: auto;            /* improved for tall menus */
+	    border-right: 1px solid #a282c3;
+	    padding: 30px 15px 10px 20px; /* 10px bottom for li spacing */
+	    z-index: 3000;
+	    transition: left 0.28s cubic-bezier(.77,0,.175,1);
+	    display: flex;
+	    flex-direction: column;
+	  }
+	  .sidebar {
+	    /* For Firefox */
+	    scrollbar-width: thin;
+	    scrollbar-color: #412261 #221A33;  /* thumb color, track (background) */
+	  }
+
+	  /* For Chrome, Edge, Safari, Opera */
+	  .sidebar::-webkit-scrollbar {
+	    width: 10px;
+	    background: #221A33;
+	  }
+	  .sidebar::-webkit-scrollbar-thumb {
+	    background: #412261;
+	    border-radius: 8px;
+	  }
+	  .sidebar::-webkit-scrollbar-thumb:hover {
+	    background: #633074;  /* Optional: highlight on hover */
+	  }
+	  .sidebar::-webkit-scrollbar-track {
+	    background: #221A33;
 	  }
 	  .sidebar h2 {
-		margin: 0 0 15px 0;
-		font-size: 1.18em;
-		letter-spacing: 0.05em;
-		color: #E1ADFF;
-		border-radius: 6px;
-		padding: 8px 12px 8px 10px;
-		text-align: left;
+	    margin: 0 0 15px 0;
+	    font-size: 1.18em;
+	    letter-spacing: 0.05em;
+	    color: #E1ADFF;
+	    border-radius: 6px;
+	    padding: 8px 12px 8px 10px;
+	    text-align: left;
 	  }
 	  .sidebar ul {
-		list-style: none;
-		padding: 0; margin: 0;
+	    list-style: none;
+	    padding: 0; margin: 0;
+	    flex: 1 1 auto;
+	    display: flex;
+	    flex-direction: column;
+	    gap: auto;                             /* Even spacing between items */
+	    min-height: 0;
+	    height: 100%;
+	    justify-content: flex-start;           /* Or 'space-between' for full-justify effect */
 	  }
 	  .sidebar li {
-		margin: 0 0 8px 0;
+	    margin: 0;                             /* Remove any default bottom margin */
 	  }
 	  .sidebar a {
-		color: #E1ADFF; text-decoration: none;
-		font-weight: 500;
-		border-radius: 4px;
-		padding: 3px 7px;
-		display: inline-block;
-		transition: color .13s, background .13s;
+	    color: #E1ADFF; text-decoration: none;
+	    font-weight: 500;
+	    border-radius: 4px;
+	    padding: 3px 7px;
+	    display: inline-block;
+	    transition: color .13s, background .13s;
+	    min-height: auto;
+	    line-height: 1.5;
 	  }
 	  .sidebar a.active, .sidebar a:hover {
-		color: #fff;
-		background: #412261;
+	    color: #fff;
+	    background: #412261;
+	  }
+	  .sidebar-toggle {
+	    display: none; position: fixed; left: 12px; top: 12px; z-index: 3500;
+	    background: none; border: none; padding: 0; cursor: pointer;
+	  }
+	  .sidebar-toggle svg { width: 32px; height: 32px; }
+	  .sidebar-backdrop {
+	    display: none;
+	    position: fixed; z-index: 3000;
+	    left:0; top:0; right:0; bottom:0;
+	    background: #18121e88;
+	    pointer-events: auto;
 	  }
 
 	  /* --- ATTRIBUTION AND SECTION INTROS --- */
 	  .attribution {
-		background: #30233d;
-		color: #c7b7de;
-		border-left: 6px solid #8045a0;
+	    margin: 0 0 26px 0;
+	    font-size: 1em;
+	    color: #c7b7de;
+	    border-left: 6px solid #8045a0;
+	    border-radius: 4px;
+	    padding: 9px 20px 7px 16px;
+	    background: #30233d;
 	  }
 	  .section-intro {
-		background: #261b36;
-		color: #ded1f7;
-		margin: 10px 0 16px 1px;
-		font-size: 1.06em;
-		line-height: 1.65;
-		padding: 11px 20px 9px 16px;
-		border-radius: 4px;
+	    background: #261b36;
+	    color: #ded1f7;
+	    margin: 18px auto 18px auto;
+	    font-size: 1.06em;
+	    line-height: 1.65;
+	    padding: 11px 20px 9px 16px;
+	    border-radius: 4px;
+	    width: calc(100vw - 60px);
+	    max-width: 1000px;
+	    box-sizing: border-box;
 	  }
 
 	  /* --- TABLE SECTION HEADERS --- */
 	  .table-section {
-		padding-top: 42px;
-		margin-bottom: 28px;
+	    padding-top: 42px;
+	    margin-bottom: 28px;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
 	  }
 	  .table-section h2 {
-		background: #412261;
-		color: #fff;
-		border-radius: 5px;
-		padding: 9px 18px;
-		margin: 0 0 10px 0;
-		font-size: 1.25em;
-		letter-spacing: 0.01rem;
-		border-bottom: 2px solid #a282c3;
+	    background: #412261;
+	    color: #fff;
+	    border-radius: 5px;
+	    padding: 9px 18px;
+	    margin: 0 0 10px 0;
+	    font-size: 1.25em;
+	    letter-spacing: 0.01rem;
+	    border-bottom: 2px solid #a282c3;
+	    text-align: center;
+	    width: calc(100vw - 60px);
+	    max-width: 1000px;
+	    margin-left: auto;
+	    margin-right: auto;
+	    box-sizing: border-box;
 	  }
 
 	  /* --- TABLE CONTROLS & FILTERS --- */
 	  .table-controls {
-		margin-bottom: 7px;
-		display: flex; gap: 18px; flex-wrap: wrap; align-items: center;
+	    margin-bottom: 7px;
+	    display: flex;
+	    gap: 18px;
+	    flex-wrap: wrap;
+	    align-items: center;
+	    justify-content: flex-start;
+	    width: calc(100vw - 60px);
+	    max-width: 1000px;
+	    box-sizing: border-box;
+	    margin-left: auto;
+	    margin-right: auto;
+	  }
+	  .table-controls > * {
+	    flex: 1 1 0;
+	    min-width: 0;
+	    max-width: 210px;
+	    width: auto;
 	  }
 	  .searchbox, .length-select, .col-filter-select {
-		background: #232037;
-		border: 1px solid #453057;
-		color: #f1e5ff;
-		border-radius: 4px;
-		font-size: 1em;
-		box-shadow: none;
-		transition: border-color 0.18s, box-shadow 0.18s;
+	    background: #232037;
+	    border: 1px solid #453057;
+	    color: #f1e5ff;
+	    border-radius: 4px;
+	    font-size: 1em;
+	    box-shadow: none;
+	    transition: border-color 0.18s, box-shadow 0.18s;
+	    min-height: 38px !important;
+	    height: 38px !important;
+	    padding: 7px 8px !important;
+	    width: 100%;
+	    max-width: none;
+	    box-sizing: border-box;
 	  }
 	  .searchbox:focus, .col-filter-select:focus, .length-select:focus {
-		border-color: #9c6bdd;
-		box-shadow: 0 0 0 1.5px #8b42d6;
-		outline: none;
+	    border-color: #9c6bdd;
+	    box-shadow: 0 0 0 1.5px #8b42d6;
+	    outline: none;
 	  }
-	  .searchbox, .col-filter-select {
-		padding: 3px 6px;
-	  }
-	  .length-select {
-		height: 2em;
-	  }
-
-	  /* --- SPECIAL REGION-TYPE FILTER GROUP --- */
 	  .region-type-filter-group label, .region-type-filter-group select {
-		color: #f3eafd;
+	    color: #f3eafd;
 	  }
 	  .region-type-filter-group {
-		display: flex;
-		align-items: center;
-		gap: 7px;
-		margin-left: 18px;
+	    display: flex;
+	    align-items: center;
+	    gap: 7px;
+	    margin-left: 18px;
+	  }
+	  .table-controls .region-type-filter-group {
+	    flex-basis: 120px;
+	    max-width: 150px;
+	    margin-left: 0 !important;
 	  }
 
 	  /* --- TABLE AND CELL STYLING --- */
 	  .table-wrapper, table {
-		background: #2d223d !important;
+	    background: #2d223d !important;
+	    width: calc(100vw - 60px);
+	    max-width: 1000px;
+	    box-sizing: border-box;
+	    margin-left: auto;
+	    margin-right: auto;
+	  }
+	  .table-wrapper {
+	    overflow-x: auto;
 	  }
 	  table {
-		border-collapse: collapse;
-		width: 100%;
-		margin: 0;
-		background: #2d223d;
-		color: #faf4ff;
+	    border-collapse: collapse;
+	    width: 100%;
+	    margin: 0;
+	    color: #faf4ff;
+	    display: table;
 	  }
 	  th, td {
-		border: 1px solid #4b3262;
-		padding: 6px 10px;
-		text-align: left;
-		min-width: 70px;
-		cursor: pointer;
-		user-select: none;
-		transition: background 0.18s, color 0.18s;
-		white-space: pre-line;
+	    border: 1px solid #4b3262;
+	    padding: 10px 12px;
+	    text-align: left;
+	    min-width: 70px;
+	    cursor: pointer;
+	    user-select: none;
+	    transition: background 0.18s, color 0.18s;
+	    white-space: pre-line;
+	    font-size: 1em;
+	    min-height: 44px;
+	    box-sizing: border-box;
 	  }
 	  th {
-		background: #412261;
-		color: #f7eaff;
-		font-weight: bold;
-		position: relative;
-		z-index: 1;
-		border-bottom: 2px solid #a282c3;
+	    background: #412261;
+	    color: #f7eaff;
+	    font-weight: bold;
+	    position: relative;
+	    z-index: 1;
+	    border-bottom: 2px solid #a282c3;
 	  }
 	  th.sorted {
-		background: #633074;
+	    background: #633074;
 	  }
 	  td.copy-highlight, th.copy-highlight {
-		background: #543168 !important;
+	    background: #543168 !important;
 	  }
 	  tr:nth-child(even) td {
-		background: #261b36;
+	    background: #261b36;
 	  }
 	  tr:hover td {
-		background: #37294a;
+	    background: #37294a;
 	  }
 
 	  /* --- TABLE FOOTER PAGINATION --- */
 	  .table-footer {
-		font-size: .9em; color: #cfc2e7;
-		padding: 3px 0 0 2px;
-		display: flex;
-		gap: 16px;
-		align-items: center;
-		user-select: none;
+	    font-size: .98em;
+	    color: #cfc2e7;
+	    padding: 4px 0 0 0;
+	    display: flex;
+	    flex-direction: row;
+	    align-items: center;
+	    justify-content: flex-start;
+	    gap: 12px;
+	    width: calc(100vw - 60px);
+	    max-width: 1000px;
+	    margin: 10px auto 0 auto;
+	    box-sizing: border-box;
+	  }
+	  .table-footer > * {
+	    margin: 0;
 	  }
 	  .table-footer .pag-btn {
-		padding: 3px 12px;
-		border: 1px solid #633070;
-		border-radius: 3px;
-		background: #3b2c4c;
-		color: #d2bcf0;
-		cursor: pointer;
-		font-size: 1em;
-		margin: 0 3px;
-		transition: background .14s;
-		font-weight: 500;
+	    padding: 3px 12px;
+	    border: 1px solid #633070;
+	    border-radius: 3px;
+	    background: #3b2c4c;
+	    color: #d2bcf0;
+	    cursor: pointer;
+	    font-size: 1em;
+	    margin: 0 3px;
+	    transition: background .14s;
+	    font-weight: 500;
+	    min-height: 44px;
+	    line-height: 1.5;
+	    box-sizing: border-box;
 	  }
 	  .table-footer .pag-btn:disabled {
-		background: #3a2b4a;
-		color: #6a6070;
-		cursor: not-allowed;
+	    background: #3a2b4a;
+	    color: #6a6070;
+	    cursor: not-allowed;
 	  }
 	  .sort-icon {
-		font-size: 0.93em;
-		margin-left: 4px;
-		color: #e6bfff;
+	    font-size: 0.93em;
+	    margin-left: 4px;
+	    color: #e6bfff;
 	  }
 
+
 	  /* --- RESPONSIVE --- */
-	  @media(max-width: 650px) {
-		#container { padding:10px 5vw 30px 5vw; margin-left: 0; }
-		.sidebar { position: static; width: 100vw; border: none; padding: 14px 5vw 8px 5vw; }
+	  @media (max-width: 650px) {
+	    body { font-size: 16px; }
+	    #container {
+	  	  margin-left: 0 !important;
+	  	  padding: 10px 0 30px 0;
+	  	  min-width: 0;
+	  	  box-sizing: border-box;
+	    }
+	    /* SIDEBAR */
+	    .sidebar-toggle { display: block; }
+	    .sidebar {
+	  	  position: fixed;
+	  	  left: -100vw;
+	  	  top: 0; bottom: 0;
+	  	  width: 85vw; max-width: 320px;
+	  	  border: none;
+	  	  padding: 22px 7vw 10px 7vw;
+	  	  box-shadow: 2px 0 24px #1118;
+	  	  z-index: 3001;
+	  	  transition: left 0.28s cubic-bezier(.77,0,.175,1);
+	    }
+	    .sidebar.open { left: 0; }
+	    .sidebar-backdrop { display: none; pointer-events: none; }
+	    .sidebar.open + .sidebar-backdrop { display: block; pointer-events: auto; }
+	    .sidebar ul {
+	  	  gap: 14px;
+	    }
+	    /* --- Key layout: everything centered, fills screen minus 60px (30px on each side) */
+	    .section-intro,
+	    .table-section h2,
+	    .table-wrapper,
+	    .table-controls,
+	    .table-footer,
+	    table {
+	  	  width: calc(100vw - 24px);
+	  	  max-width: 100vw;
+	  	  min-width: 0;
+	  	  margin-left: auto;
+	  	  margin-right: auto;
+	  	  box-sizing: border-box;
+	    }
+	    .table-controls {
+	  	  gap: 10px;
+	  	  flex-direction: row;
+	  	  align-items: center;
+	  	  justify-content: flex-start;
+	  	  flex-wrap: wrap;
+	    }
+	    .table-controls > * {
+	  	  flex: 1 1 0;
+	  	  min-width: 0;
+	  	  max-width: 210px;
+	  	  width: auto;
+	    }
+	    .searchbox, .length-select, .col-filter-select {
+	  	  min-height: 38px !important;
+	  	  height: 38px !important;
+	  	  max-width: 210px;
+	    }
+	    .table-footer {
+	  	  gap: 7px;
+	  	  padding-left: 0;
+	  	  padding-right: 0;
+	    }
+	    th, td {
+	  	  padding: 8px 7px;
+	  	  font-size: .98em;
+	    }
 	  }
+	  @media (max-width: 450px) {
+	    #container {margin-left: 0 !important;}
+	    .section-intro,
+	    .table-section h2,
+	    .table-wrapper,
+	    .table-controls,
+	    .table-footer,
+	    table {
+	  	  width: 98vw;
+	  	  padding-left: 0 !important;
+	  	  padding-right: 0 !important;
+	  	  margin-left: auto;
+	  	  margin-right: auto;
+	  	  box-sizing: border-box;
+	    }
+	  }
+
 	</style>
 </head>
 <body>
+	<button class="sidebar-toggle" aria-label="Open menu">
+		<!-- Simple hamburger icon SVG -->
+		<svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true" style="display:block"><rect y="6" width="32" height="4" rx="2" fill="#E1ADFF"/><rect y="14" width="32" height="4" rx="2" fill="#E1ADFF"/><rect y="22" width="32" height="4" rx="2" fill="#E1ADFF"/></svg>
+	</button>
   <nav class="sidebar">
     <h2>Catagories</h2>
     <ul id="sidebar-nav"></ul>
   </nav>
+  <div class="sidebar-backdrop"></div>
   <div id="container">
     <h1>Oblivion Remastered Command & Data Tables</h1>
     <div class="attribution">
@@ -263,7 +466,9 @@ ConsoleKeys=</pre>
     <br><b>Tip:</b> You can select NPCs/objects by clicking on them in-game with the console open.`,
   "Quest Commands": `Commands to help fix quest bugs, skip stages, or reveal quest IDs and stages. Use with care, as incorrect usage may affect game stability.`,
   "Armor IDs": `<b>Armor items:</b> Use the ID in console commands like <code>player.additem &lt;ID&gt; 1</code>. Some items have multiple variants.`,
-  "Location IDs": `Teleport to locations by name with <code>coc &lt;LocationID&gt;</code>.`,
+  "Location IDs": `Teleport to locations by name with <code>coc &lt;LocationID&gt;</code>.
+				   <br><b>Notice:</b> Some Test cells may crash your game, best to start in a small area/room and then use the command.
+				   <br><sup><i>Test Cell*</i> are places that piqued my interest, go on try them out...</sup>`,
 };
 function slug(str) {
   return str.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/--+/g, '-').replace(/^-|-$/g, '');
@@ -428,7 +633,8 @@ function makeTableInteractive(block, rows, headers, sectionName) {
 async function main() {
   let buf;
   try {
-    buf = await fetch("table.xlsx").then(r=>r.arrayBuffer());
+    const cacheBuster = Date.now();
+	buf = await fetch(`table.xlsx?v=${cacheBuster}`).then(r=>r.arrayBuffer());
   } catch(e) {
     document.getElementById("tables-root").innerHTML = "<div style='color:#B22;font-weight:bold'>Could not find <code>table.xlsx</code>. Place it next to this HTML and open via a local web server.</div>";
     document.getElementById("sidebar-nav").innerHTML = "";
@@ -596,6 +802,28 @@ async function main() {
     };
   });
 }
+// ----- Mobile Sidebar with Body Scroll Lock -----
+ window.addEventListener('DOMContentLoaded', () => {
+  const sidebar = document.querySelector('.sidebar');
+  const toggle = document.querySelector('.sidebar-toggle');
+  const backdrop = document.querySelector('.sidebar-backdrop');
+
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  toggle.onclick = () => {
+    sidebar.classList.toggle('open');
+    document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+  };
+  backdrop.onclick = closeSidebar;
+  // Optional: close sidebar on nav click (mobile UX)
+  sidebar.addEventListener('click', e => {
+    if(e.target.tagName==='A' && window.innerWidth <= 650) setTimeout(closeSidebar, 200);
+  });
+});
+
 window.addEventListener('DOMContentLoaded',main);
 </script>
 </body>
