@@ -206,8 +206,13 @@
 	    height: 38px !important;
 	    padding: 7px 8px !important;
 	    width: 100%;
-	    max-width: none;
+	    max-width: 300px;
 	    box-sizing: border-box;
+	  }
+	  .table-controls > .length-select {
+	    width: 100px !important;
+		max-width: 100px !important;
+		flex: none !important;
 	  }
 	  .searchbox:focus, .col-filter-select:focus, .length-select:focus {
 	    border-color: #9c6bdd;
@@ -225,10 +230,14 @@
 	  }
 	  .table-controls .region-type-filter-group {
 	    flex-basis: 120px;
-	    max-width: 150px;
+	    max-width: 300px;
 	    margin-left: 0 !important;
 	  }
-
+	  .col-filter-select {
+	    flex-basis: 120px;
+	    max-width: 100px !important;
+	    margin-left: 0 !important;
+	  }
 	  /* --- TABLE AND CELL STYLING --- */
 	  .table-wrapper, table {
 	    background: #2d223d !important;
@@ -403,11 +412,18 @@
 	  	  max-width: 210px;
 	  	  width: auto;
 	    }
-	    .searchbox, .length-select, .col-filter-select {
+	    .searchbox, .col-filter-select {
 	  	  min-height: 38px !important;
 	  	  height: 38px !important;
 	  	  max-width: 210px;
 	    }
+		.table-controls > .length-select {
+		  min-height: 38px !important;
+		  height: 38px !important;
+		  width: 30px !important;
+		  max-width: 30px !important;
+		  flex: none !important;
+		}
 	    .table-footer {
 	  	  gap: 7px;
 	  	  padding-left: 0;
