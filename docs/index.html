@@ -248,6 +248,27 @@
 	    color: #faf4ff;
 	    display: table;
 	  }
+	  .table-wrapper {
+	    /* For Firefox */
+	    scrollbar-width: thin;
+	    scrollbar-color: #412261 #221A33;  /* thumb color, track (background) */
+	  }
+
+	  /* For Chrome, Edge, Safari, Opera */
+	  .table-wrapper::-webkit-scrollbar {
+	    width: 10px;
+	    background: #221A33;
+	  }
+	  .table-wrapper::-webkit-scrollbar-thumb {
+	    background: #412261;
+	    border-radius: 8px;
+	  }
+	  .table-wrapper::-webkit-scrollbar-thumb:hover {
+	    background: #633074;  /* Optional: highlight on hover */
+	  }
+	  .table-wrapper::-webkit-scrollbar-track {
+	    background: #221A33;
+	  }
 	  th, td {
 	    border: 1px solid #4b3262;
 	    padding: 10px 12px;
@@ -470,6 +491,9 @@ ConsoleKeys=</pre>
   "Location IDs": `Teleport to locations by name with <code>coc &lt;LocationID&gt;</code>.
 				   <br><b>Notice:</b> Some Test cells may crash your game, best to start in a small area/room and then use the command.
 				   <br><sup><i>Test Cell*</i> are places that piqued my interest, go on try them out...</sup>`,
+   "All Item IDs": `Below is a list of all item IDs in the game, I tried to make it as comprehensive as possible
+					<br><b>Notice:</b> Some have unplayable in the name or tag, I didn't check all but they seem to not show in inventory.
+					<br><sup>Would love to get a better list going... Any notes for me we'll start a thread in issues for it on my <a href="https://github.com/Pacmanninja/Oblivion-Remastered/issues/1" target="_blank">github</a>.</sup>`, 
 };
 function slug(str) {
   return str.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/--+/g, '-').replace(/^-|-$/g, '');
@@ -708,12 +732,13 @@ async function main() {
 	let lower = sheet.display.toLowerCase();
 
 	// Make filter appear for both "location id" and "weapon id" sheets
-	let needsTypeFilter = /location id/i.test(lower) || /weapon id/i.test(lower);
+	let needsTypeFilter = /location id/i.test(lower) || /weapon id/i.test(lower) || /every id/i.test(lower);
 
 	// For Location IDs, the column is "Region/Type", for Weapon IDs it's "Type"
 	let typeColumnNames = [];
 	if (/location id/i.test(lower)) typeColumnNames = ["region/type"];
 	else if (/weapon id/i.test(lower)) typeColumnNames = ["type"];
+	else if (/every id/i.test(lower)) typeColumnNames = ["item type"];
 
 	// Try to find the first matching type column
 	let typeColIdx = -1;
