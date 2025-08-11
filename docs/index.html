@@ -592,7 +592,11 @@ ConsoleKeys=</pre>
       'Location IDs': `Teleport to locations by name with <code>coc &lt;LocationID&gt;</code>.
    <br><b>Notice:</b> Some Test cells may crash your game, best to start in a small area/room and then use the command.
    <br><sup><i>Test Cell*</i> are places that piqued my interest, go on try them out...</sup>`,
-      'All Item IDs': `Below is a list of all Item IDs in the game, I tried to make it as comprehensive as possible
+      'All Effect IDs':`Below is a list of all Item IDs in the game, I tried to make it as comprehensive as possible
+<br><b>Player Usage:</b><br> Add: <code>player.addspell &lt;SpellID&gt;</code><br> Remove: <code>player.removespell &lt;SpellID&gt;</code>
+<br><b>Ref Usage:</b><br><code>&lt;RefID&gt;.addspell &lt;SpellID&gt;</code> / <code>&lt;RefID&gt;.removespell &lt;SpellID&gt;</code>
+<br><sup>Would love to get a better list going... Any notes for me we'll start a thread in issues for it on my <a href="https://github.com/Pacmanninja/Oblivion-Remastered/issues/1" target="_blank">github</a>.</sup>`,
+	  'All Item IDs': `Below is a list of all Item IDs in the game, I tried to make it as comprehensive as possible
 <br><b>Notice:</b> Some have unplayable in the name or tag, I didn't check all but they seem to not show in inventory.
 <br><sup>Would love to get a better list going... Any notes for me we'll start a thread in issues for it on my <a href="https://github.com/Pacmanninja/Oblivion-Remastered/issues/1" target="_blank">github</a>.</sup>`,
     };
@@ -956,13 +960,14 @@ ConsoleKeys=</pre>
         let lower = sheet.display.toLowerCase();
 
         // Make filter appear for both "location id" and "weapon id" sheets
-        let needsTypeFilter = /location id/i.test(lower) || /weapon id/i.test(lower) || /all item id/i.test(lower);
+        let needsTypeFilter = /location id/i.test(lower) || /weapon id/i.test(lower) || /all item id/i.test(lower) || /all effect id/i.test(lower);
 
         // For Location IDs, the column is "Region/Type", for Weapon IDs it's "Type"
         let typeColumnNames = [];
         if (/location id/i.test(lower)) typeColumnNames = ['region/type'];
         else if (/weapon id/i.test(lower)) typeColumnNames = ['type'];
         else if (/all item id/i.test(lower)) typeColumnNames = ['item type'];
+		else if (/all effect id/i.test(lower)) typeColumnNames = ['type'];
 
         // Try to find the first matching type column
         let typeColIdx = -1;
