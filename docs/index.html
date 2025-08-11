@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Oblivion Remastered</title>
+<title>Oblivion Remastered Console Cheat Sheet & Database</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <script>
 (function() {
@@ -11,12 +11,28 @@
   var currentUrl = normalize(window.location.href);
 
   if (currentUrl === normalize(allowedUrl)) {
-    window.location.replace("site.html");
+    history.replaceState(null, "", "");
+
+    fetch("site.html")
+      .then(res => {
+        if (!res.ok) throw new Error("Failed to load site.html");
+        return res.text();
+      })
+      .then(html => {
+        document.open();
+        document.write(html);
+        document.close();
+      })
+      .catch(err => {
+        document.body.innerHTML = "<h2 style='color:white;font-family:Arial;'>Error loading the site. Please try again later.</h2>";
+        console.error(err);
+      });
   } else {
+    // Not allowed - show Access Restricted message
     document.write('<!DOCTYPE html><html><head><title>Access Restricted</title><style>\
-      body {background:#1d1626; color:#fff; font-family:Arial,sans-serif; \
-      display:flex; justify-content:center; align-items:center; height:100vh; margin:0; text-align:center;}\
-      a { color:#9c6bdd; font-weight:bold; }\
+      body {background:#1d1626;color:#fff;font-family:Arial,sans-serif;\
+      display:flex;justify-content:center;align-items:center;height:100vh;margin:0;text-align:center;}\
+      a {color:#9c6bdd;font-weight:bold;}\
     </style></head><body>\
       <div>\
         <h2>Access Restricted</h2>\
